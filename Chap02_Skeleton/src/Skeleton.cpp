@@ -14,6 +14,26 @@
 //-----------------------------------------------------------------
 // Global Functions
 //-----------------------------------------------------------------
+
+// "Draw" text to a texture (do not actually draw on the renderer)
+SDL_Texture *DrawText(SDL_Renderer *renderer, const char* text, TTF_Font *Font, SDL_Color FontColor){
+  SDL_Surface* text_surface = TTF_RenderText_Blended(Font,
+						     text,
+						     FontColor);
+
+  if(!text_surface){
+    std::cout << "TTF_RenderText: " << TTF_GetError() << std::endl;
+  }
+    
+  SDL_Texture* text_texture = SDL_CreateTextureFromSurface(renderer,
+							   text_surface);
+  SDL_FreeSurface(text_surface);
+
+  return text_texture;
+}
+
+
+//main function
 int main(int argc, char *argv[])
 {
   bool done = false;
@@ -72,17 +92,7 @@ int main(int argc, char *argv[])
   }
 
   SDL_Color FontColor = {0, 0, 0};
-  SDL_Surface* text_surface = TTF_RenderText_Blended(Font,
-						     "This is a skeleton application! ",
-						     FontColor);
-
-  if(!text_surface){
-    std::cout << "TTF_RenderText: " << TTF_GetError() << std::endl;
-  }
-    
-  SDL_Texture* text_texture = SDL_CreateTextureFromSurface(renderer,
-							   text_surface);
-  SDL_FreeSurface(text_surface);
+  SDL_Texture *text_texture = DrawText(renderer, "This is a skeleton application! ", Font, FontColor);
 
   //Get the texture w/h so we can center it on the screen
   int iW, iH;
