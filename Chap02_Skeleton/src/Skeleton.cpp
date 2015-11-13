@@ -77,7 +77,7 @@ int main(int argc, char *argv[])
 						     FontColor);
 
   if(!text_surface){
-    printf("TTF_RenderText: %s\n", TTF_GetError());
+    std::cout << "TTF_RenderText: " << TTF_GetError() << std::endl;
   }
     
   SDL_Texture* text_texture = SDL_CreateTextureFromSurface(renderer,
