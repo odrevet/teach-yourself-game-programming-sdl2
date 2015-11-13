@@ -18,7 +18,7 @@ but the advantages of SDL2 are obvious.
 
 # Key differences with the original code
 
-* Uses Makefile
+* Uses GNU Makefile
 * Uses of SDL2 for the window creation and event listening
 * Uses of SDL2_TTF for the text display
 * Uses of SDL2_Image for the window icon
