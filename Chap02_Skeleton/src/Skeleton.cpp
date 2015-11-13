@@ -132,6 +132,7 @@ int main(int argc, char *argv[])
   }
 
   // Exit the application
+  SDL_DestroyTexture(text_texture);
   SDL_DestroyWindow(window);
   TTF_CloseFont(Font);
   SDL_Quit();
