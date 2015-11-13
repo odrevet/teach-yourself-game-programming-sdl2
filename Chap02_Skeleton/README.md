@@ -1,7 +1,7 @@
 In this chapter a simple window is opened with a white background and a black
 text saying "this is a skeleton application" which beside the window icon behine
-a skeleton icone is an obvious pune as this code will be the skeleton of the
-applications next chapters.
+a skeleton icon is an obvious pune as this code will be the skeleton of the
+next chapters.
 
 The reader can see immediatly how easy it is to create a window with SDL2
 instead of using the WIN32 API as there is no complex messaging system and
