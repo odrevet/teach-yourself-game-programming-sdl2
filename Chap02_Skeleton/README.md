@@ -14,7 +14,7 @@ Due to the uses of SDL2_ttf and SDL2_image the code is a bit longer than the WIN
 but the advantages of SDL2 are obvious.
 
 
-# Key differencies with the original code
+# Key differences with the original code
 
 * Uses Makefile
 * Uses of SDL2 for the window creation and event listening
