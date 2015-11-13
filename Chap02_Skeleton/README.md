@@ -1,5 +1,5 @@
 In this chapter a simple window is opened with a white background and a black
-text saying "this is a skeleton application" which beside the window icon behine
+text saying "This is a skeleton application! " which beside the window icon behine
 a skeleton icon is an obvious pune as this code will be the skeleton of the
 next chapters.
 
@@ -9,6 +9,8 @@ the parameters of the window creation function are self explanatory.
 
 The only complicated thing is the use of the SDL2 TTF library as there is no
 WIN32 "DrawText" equivalent with SDL2.
+
+Also, the window icon is loaded with SDL2_image as an SDL_Surface and then freed. 
 
 Due to the uses of SDL2_ttf and SDL2_image the code is a bit longer than the WIN32 version
 but the advantages of SDL2 are obvious.
