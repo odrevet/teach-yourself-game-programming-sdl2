@@ -1,5 +1,5 @@
 
-In this example, an icone is randomly drawn on the screen. The Screen is never
+In this example, an icon is randomly drawn on the screen. The Screen is never
 refreshed, so even if the icone is drawn once per game cycle, it appeare several
 times.
 
@@ -46,6 +46,7 @@ The activated / deactivated part is not implemented.
 The game starts immediatly after the initialization
 
 # key differences with the original code
+
 * The GameEngine Class uses the singleton design pattern
 * The main function is out of GameEngine.cpp
 * Created IGame interface and Game Class
@@ -53,6 +54,6 @@ The game starts immediatly after the initialization
 * Removed HInstance, replaced HWND by SDL_Window
 * Changed WIN32 types to standard types
 * Converted the .ico to display to a .png
-** renamed FALSE and TRUE to false and true
-** renamed BOOL to bool
-** LPSTR, TCHAR  are char* or char[]
+ * renamed FALSE and TRUE to false and true
+ * renamed BOOL to bool
+ * LPSTR, TCHAR  are char* or char[]
