@@ -53,8 +53,8 @@ The game starts immediatly after the initialization
 * Created IGame interface and Game Class
 * Replaced GetTickCount With SDL_GetTicks
 * Removed HInstance, replaced HWND by SDL_Window
-* Changed WIN32 types to standard types
 * Converted the .ico to display to a .png
+* Changed WIN32 types to standard types
  * renamed FALSE and TRUE to false and true
  * renamed BOOL to bool
  * LPSTR, TCHAR  are char* or char[]
