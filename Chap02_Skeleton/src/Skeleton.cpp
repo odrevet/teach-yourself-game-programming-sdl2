@@ -46,8 +46,8 @@ int main(int argc, char *argv[])
 
   //Initialize SDL2 TTF
   if(TTF_Init()==-1) {
-    printf("TTF_Init: %s\n", TTF_GetError());
-    exit(2);
+    std::cout << "TTF_Init: " << TTF_GetError() << std::endl;
+    exit(EXIT_FAILURE);
   }
 
   // Create an application window with the following settings:
@@ -71,7 +71,6 @@ int main(int argc, char *argv[])
   // The icon is attached to the window pointer
   SDL_Surface *icone_surface = IMG_Load("res/Skeleton_sm.ico");
   
-  
   SDL_SetWindowIcon(window, icone_surface);
 
   // ...and the surface containing the icon pixel data is no longer required.
@@ -92,9 +91,12 @@ int main(int argc, char *argv[])
   }
 
   SDL_Color FontColor = {0, 0, 0};
-  SDL_Texture *text_texture = DrawText(renderer, "This is a skeleton application! ", Font, FontColor);
+  SDL_Texture *text_texture = DrawText(renderer,
+				       "This is a skeleton application! ",
+				       Font,
+				       FontColor);
 
-  //Get the texture w/h so we can center it on the screen
+  //Get the text texture w/h so we can center it on the screen
   int iW, iH;
   SDL_QueryTexture(text_texture, NULL, NULL, &iW, &iH);
   int x = SCREEN_WIDTH / 2 - iW / 2;
