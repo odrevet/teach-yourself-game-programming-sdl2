@@ -101,7 +101,7 @@ int main(int argc, char *argv[])
   SDL_QueryTexture(text_texture, NULL, NULL, &iW, &iH);
   int x = SCREEN_WIDTH / 2 - iW / 2;
   int y = SCREEN_HEIGHT / 2 - iH / 2;
-  SDL_Rect Message_rect = {y, x, iW, iH};
+  SDL_Rect Message_rect = {x, y, iW, iH};
 
   
   // Enter the main loop

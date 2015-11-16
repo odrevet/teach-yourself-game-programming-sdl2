@@ -75,7 +75,7 @@ void Game::Cycle()
 void Game::DrawImage(SDL_Renderer *renderer, int x, int y){
   int iW, iH;
   SDL_QueryTexture(this->icon, NULL, NULL, &iW, &iH);
-  SDL_Rect rect = {y, x, iW, iH};  
+  SDL_Rect rect = {x, y, iW, iH};  
 
   int retcode = SDL_RenderCopy(renderer, this->icon, NULL, &rect);
   if(retcode <0)std::cout << "ERR DRAW " << SDL_GetError() << std::endl;
