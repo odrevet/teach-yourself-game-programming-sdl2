@@ -16,17 +16,17 @@ specific code, every other files are part of the engine.
 
 in the main function, the following statements
 
-````c++
+```c++
   if (GameInitialize(hInstance))
   {
     // Initialize the game engine
     if (!GameEngine::GetEngine()->Initialize(iCmdShow))
       return FALSE;
-
+```
 
 has been replaced by
 
-````c++
+```c++
   const char* game_name = "Game skeleton";
   const char* game_icon = "res/Skeleton.ico";
   
@@ -36,6 +36,7 @@ has been replaced by
     std::cout << "INIT ERR" << std::endl;
     return EXIT_FAILURE;
   }
+```
 
 The full main function is not anymore in an if brace,
 You can also notice the pGame variable of type Game* instead of
