@@ -85,6 +85,21 @@ bool GameEngine::Initialize(const char* szTitle, const char* szIcon, int iWidth,
   return true;
 }
 
-void GameEngine::HandleEvent()
-{
+void GameEngine::HandleEvent(){
+  SDL_Event ev;
+  while ( SDL_PollEvent(&ev) ) {
+    switch(ev.type) {
+    case SDL_WINDOWEVENT:
+      switch ( ev.window.event ){
+      case SDL_WINDOWEVENT_CLOSE: 
+	exit(EXIT_SUCCESS);
+	break;
+      }
+      break;
+    case SDL_MOUSEMOTION:
+      break;
+    case SDL_MOUSEBUTTONDOWN:
+      break;
+    }
+  }
 }

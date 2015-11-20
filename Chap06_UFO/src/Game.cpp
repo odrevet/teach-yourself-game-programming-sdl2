@@ -91,53 +91,52 @@ void Game::Cycle()
 }
 
 void Game::HandleKeys(){
-  SDL_Event ev;
-  while ( SDL_PollEvent(&ev) ) {
-    switch(ev.type) {
-    case SDL_KEYDOWN:
-      switch ( ev.key.keysym.sym ){
-      case SDLK_LEFT:
-	_iSpeedX--;
-	_iSpeedX = std::max(-_iMAXSPEED, _iSpeedX);
+  SDL_PumpEvents();
+  const Uint8 *state = SDL_GetKeyboardState(NULL);
+
+  //Q
+  if (state[SDL_GetScancodeFromKey(SDLK_q)]) {
+    exit(0);
+  }
+
+  //UP
+  if (state[SDL_SCANCODE_UP]){
+    _iSpeedY--;
+    _iSpeedY = std::max(-_iMAXSPEED, _iSpeedY);
 
 #ifdef DEBUG
-	std::cout << "left key down. X Speed is " << _iSpeedX << std::endl;
-#endif
-	
-	break;
-      case SDLK_RIGHT:
+    std::cout << "up key down. Y Speed is " << _iSpeedY << std::endl;
+#endif    
+  }
 
-	_iSpeedX++;
-	_iSpeedX = std::min(_iMAXSPEED, _iSpeedX);
-
-#ifdef DEBUG
-	std::cout << "right key down. X Speed is " << _iSpeedX << std::endl;
-#endif
-	
-	break;
-      case SDLK_UP:
-	_iSpeedY--;
-	_iSpeedY = std::max(-_iMAXSPEED, _iSpeedY);
+  //RIGHT
+  if (state[SDL_SCANCODE_RIGHT]){
+    _iSpeedX++;
+    _iSpeedX = std::min(_iMAXSPEED, _iSpeedX);
 
 #ifdef DEBUG
-	std::cout << "up key down. Y Speed is " << _iSpeedY << std::endl;
-#endif
-	
-	break;
-      case SDLK_DOWN:
-	_iSpeedY++;
-	_iSpeedY = std::min(_iMAXSPEED, _iSpeedY);
+    std::cout << "right key down. X Speed is " << _iSpeedX << std::endl;
+#endif    
+  }
+
+  //DOWN
+  if (state[SDL_SCANCODE_DOWN]){
+    _iSpeedY++;
+    _iSpeedY = std::min(_iMAXSPEED, _iSpeedY);
 
 #ifdef DEBUG
-	std::cout << "down key down. Y Speed is " << _iSpeedY << std::endl;
-#endif
-	
-	break;
-      case SDLK_q: 
-	exit(0);
-	break;	  
-      }
-    }
+    std::cout << "down key down. Y Speed is " << _iSpeedY << std::endl;
+#endif    
+  }
+
+  //LEFT
+  if (state[SDL_SCANCODE_LEFT]){
+    _iSpeedX--;
+    _iSpeedX = std::max(-_iMAXSPEED, _iSpeedX);
+
+#ifdef DEBUG
+    std::cout << "left key down. X Speed is " << _iSpeedX << std::endl;
+#endif    
   }
 }
 
