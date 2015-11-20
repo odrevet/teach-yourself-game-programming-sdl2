@@ -5,16 +5,18 @@ times.
 
 Some minor adjustement has been made to the source code beside the SLD2 port.
 
-a main.cpp file has been created for the main function, instead of having it in
-the GameEngine.cpp file
+* a main.cpp file has been created for the main function, instead of having it in
+the GameEngine.cpp file.
 
-Instead of having global functions in Skeleton.cpp an Interface IGame is
+* Instead of having global functions in Skeleton.cpp an Interface IGame is
 defined and implemented by a Game class.
+pGame is no more the instace of the GameEngine but the instance of the newly
+created Game class and the GameEngine use the singleton pattern.
 
-From now on, only the main.cpp, Game.h and Game.cpp files will contain the game
+* From now on, only the main.cpp, Game.h and Game.cpp files will contain the game
 specific code, every other files are part of the engine. 
 
-in the main function, the following statements
+* in the main function, the following statements
 
 ```c++
   if (GameInitialize(hInstance))
