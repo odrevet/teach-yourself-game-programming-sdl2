@@ -1,6 +1,6 @@
 EXEC=target
 CC=g++
-CFLAGS= -Wall -ansi -pedantic -std=c++0x `sdl2-config --cflags`
+CFLAGS= -Wall -ansi -pedantic -std=c++11 `sdl2-config --cflags`
 LDFLAGS= `sdl2-config --libs` -lSDL2_image -lSDL2_ttf
 CPPFLAGS=
 
