@@ -97,8 +97,11 @@ void GameEngine::HandleEvent(){
       }
       break;
     case SDL_MOUSEMOTION:
+      m_game->MouseMove(ev.motion.x, ev.motion.y);
       break;
     case SDL_MOUSEBUTTONDOWN:
+      bool left_button = ev.button.button == SDL_BUTTON_LEFT?true:false;
+      m_game->MouseButtonDown(ev.button.x, ev.button.y, left_button);
       break;
     }
   }

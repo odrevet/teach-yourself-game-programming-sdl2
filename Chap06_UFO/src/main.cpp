@@ -15,6 +15,7 @@ int main (int argc, char* argv[])
 
   //get the game engine
   GameEngine *pGameEngine = GameEngine::GetEngine();
+  pGameEngine->m_game = pGame;
   
   static int  iTickTrigger = 0;
   int         iTickCount;

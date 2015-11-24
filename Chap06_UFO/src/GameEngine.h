@@ -14,6 +14,8 @@
 
 #include <iostream>
 
+#include "IGame.h"
+
 //-----------------------------------------------------------------
 // GameEngine Class
 //-----------------------------------------------------------------
@@ -31,6 +33,8 @@ class GameEngine
   bool                m_bSleep;
     
  public:
+  IGame*              m_game;
+    
   // Destructor
   virtual ~GameEngine();
 

@@ -16,6 +16,10 @@ class IGame
   virtual void Paint()=0;
   virtual void Cycle()=0;
   virtual void HandleKeys()=0;
+  virtual void MouseButtonDown(int x, int y, bool bLeft)=0;
+  virtual void MouseButtonUp(int x, int y, bool bLeft)=0;
+  virtual void MouseMove(int x, int y)=0;
+  
 };
 
 inline IGame::~IGame() { }
