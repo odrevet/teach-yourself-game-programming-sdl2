@@ -26,7 +26,7 @@ bool Game::Initialize()
 
   // Initialize the joystick
   pGameEngine->InitJoystick();
-    
+
   return true;
 }
 
@@ -74,7 +74,7 @@ void Game::Start()
   // Initialize the tile selections and match/try count
   _ptTile1.x = _ptTile1.y = -1;
   _ptTile2.x = _ptTile2.y = -1;
-  _iMatches = _iTries = 0;  
+  _iMatches = _iTries = 0;
 }
 
 void Game::End()
@@ -82,7 +82,7 @@ void Game::End()
     // Cleanup the tile bitmaps
   for (int i = 0; i < 9; i++)
     delete _pTiles[i];
-  
+
   // Cleanup the game engine
   GameEngine *pGameEngine = GameEngine::GetEngine();
   delete pGameEngine;
@@ -100,7 +100,7 @@ void Game::Paint()
 {
   GameEngine *pGameEngine = GameEngine::GetEngine();
   SDL_Renderer *renderer = pGameEngine->GetRenderer();
-    
+
   // Draw the tiles
   int iTileWidth = _pTiles[0]->GetWidth();
   int iTileHeight = _pTiles[0]->GetHeight();
@@ -120,13 +120,20 @@ void Game::Cycle()
 }
 
 void Game::HandleKeys(){
+  SDL_PumpEvents();
+  const Uint8 *state = SDL_GetKeyboardState(NULL);
+
+  //Q
+  if (state[SDL_GetScancodeFromKey(SDLK_q)]) {
+    exit(0);
+  }
 }
 
 void Game::MouseButtonDown(int x, int y, bool bLeft)
 {
   GameEngine* pGE = GameEngine::GetEngine();
   SDL_Renderer* renderer = pGE->GetRenderer();
-  
+
   // Determine which tile was clicked
   int iTileX = x / _pTiles[0]->GetWidth();
   int iTileY = y / _pTiles[0]->GetHeight();
