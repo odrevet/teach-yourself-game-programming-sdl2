@@ -21,7 +21,7 @@ class Bitmap
 protected:
   // Member Variables
   SDL_Texture* m_hBitmap;
-  int     m_iWidth, m_iHeight;
+  int          m_iWidth, m_iHeight;
 
   // Helper Methods
   void Free();
@@ -29,7 +29,9 @@ protected:
 public:
   // Constructor(s)/Destructor
   Bitmap();
-  Bitmap(SDL_Renderer* renderer, const char* szFileNamebool, SDL_Color *scTransColor = NULL);
+  Bitmap(SDL_Renderer* renderer,
+	 const char* szFileNamebool,
+	 SDL_Color *scTransColor = nullptr);
   virtual ~Bitmap();
 
   // General Methods

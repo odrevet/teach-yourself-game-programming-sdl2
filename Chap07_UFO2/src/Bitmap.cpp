@@ -22,7 +22,7 @@ Bitmap::Bitmap(SDL_Renderer* renderer, const char* szFileName, SDL_Color *scTran
 {
   SDL_Surface *surface = IMG_Load(szFileName);
   if (!surface){
-    //ERR
+    std::cout << "Error loading " << szFileName << ": " << SDL_GetError() << std::endl;
   }
 
   this->m_iWidth = surface->w;
