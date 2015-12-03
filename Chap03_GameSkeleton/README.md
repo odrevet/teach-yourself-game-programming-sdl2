@@ -10,11 +10,15 @@ the GameEngine.cpp file.
 
 * Instead of having global functions in Skeleton.cpp an Interface IGame is
 defined and implemented by a Game class.
-pGame is no more the instace of the GameEngine but the instance of the newly
+To avoid updating the includes in each chapter, the file named after the chapter
+name in the original code is now always in the Game file.
+
+* pGame is no more the instance of the GameEngine but the instance of the newly
 created Game class and the GameEngine use the singleton pattern.
 
 * From now on, only the main.cpp, Game.h and Game.cpp files will contain the game
-specific code, every other files are part of the engine. 
+specific code, every other files are part of the engine. Every other files are
+part of the Engine and should be consider conceiled by the game developper. 
 
 * in the main function, the following statements
 
@@ -45,11 +49,10 @@ You can also notice the pGame variable of type Game* instead of
 global function as previously stated and the parameters are moved
 from the constructor to Initialize. 
 
-The activated / deactivated part is not implemented.
-The game starts immediatly after the initialization
+*The activated / deactivated part is not implemented.
+*The game starts immediatly after the initialization
 
 # key differences with the original code
-
 * The GameEngine Class uses the singleton design pattern
 * The main function is out of GameEngine.cpp
 * Created IGame interface and Game Class
