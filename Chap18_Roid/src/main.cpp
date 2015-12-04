@@ -19,8 +19,8 @@ int main (int argc, char* argv[])
   //assign the created game to the engine
   pGameEngine->m_game = pGame;
   
-  const char* game_name = "Battle Office 2";
-  const char* game_icon = "res/BattleOffice.ico";
+  const char* game_name = "Roids";
+  const char* game_icon = "res/Roids.ico";
   int window_width = 500;
   int window_height = 400;
 
