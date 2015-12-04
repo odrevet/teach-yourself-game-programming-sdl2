@@ -55,12 +55,14 @@ h
     The height of the rectangle
 
 
+therefore left is x and top is y
+
 #Key differences with the origial code
-*Removed unused variable ptBoundsSize in Sprite::Update
-*Updated algorithm with SDL_Rect
-*in DEBUG mode, the sprite draw his bound rect and his position
-*in DEBUG mode, drag informations are printed on the standard output
-*The srand is initialized with the time instead of the ticks
-*The Sprite::IsPointInside has been rewrited, there do is a SDL_PointInRect
- function but it is only available in SDL>=2.0.4 which is yet not widly
- distributed in linux distros. 
+* Removed unused variable ptBoundsSize in Sprite::Update
+* Updated algorithm with SDL_Rect
+* in DEBUG mode, the sprite draw his bound rect and his position
+* in DEBUG mode, drag informations are printed on the standard output
+* The srand is initialized with the time instead of the ticks
+* The Sprite::IsPointInside has been rewrited, there do is a SDL_PointInRect
+  function but it is only available in SDL>=2.0.4 which is yet not widly
+  distributed in linux distros. 
