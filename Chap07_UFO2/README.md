@@ -1,5 +1,5 @@
-In this chapter the game engine and thus the UFO game is upgraded with the
-support  of the joystick controler.
+In this chapter the game engine and the UFO game are upgraded with the
+support of the joystick controller.
 I was amaze that the original Windows exe worked fine on linux with wine and an
 Xbox controler.
 
@@ -15,6 +15,6 @@ Also, a new function GameEngine::Run has been created, with most of the code
 from the main function (the main loop).
 
 #Key differances with the original code
-*Uses SDL2 GameController API
-*The main loop is in GameEngine::Run
-*JOYSTATE constants are now in an enum.
+* Uses SDL2 GameController API
+* The main loop is in GameEngine::Run
+* JOYSTATE constants are now in an enum.

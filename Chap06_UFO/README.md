@@ -9,7 +9,4 @@ This chapter also introduce transparency color.
   Transparancy color. In this new version only the transparancy color is required.
   No transparency if the transparancy color is NULL
 * The alpha value can be set (4th csTransColor member)
-* When build with DEBUG (make DEBUG=yes) the speed and key down in print on standard output
-
-# TODO
-* Keyboard and mouse input
+* When build with DEBUG (make DEBUG=yes) the speed and key down are print on standard output
