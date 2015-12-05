@@ -23,9 +23,6 @@ bool Game::Initialize()
 
   // Set the frame rate
   pGameEngine->SetFrameRate(30);
-
-  // Initialize the joystick
-  pGameEngine->InitJoystick();
   
   //init text
   _ttfFont = TTF_OpenFont("res/DejaVuSans.ttf", 12);
@@ -33,6 +30,9 @@ bool Game::Initialize()
     std::cout << " Failed to load font : " << TTF_GetError() << std::endl;
     return false;
   }
+
+  //Hide the mouse pointer
+  SDL_ShowCursor(false);
   
   return true;
 }

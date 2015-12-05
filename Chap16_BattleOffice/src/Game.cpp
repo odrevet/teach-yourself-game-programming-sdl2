@@ -24,16 +24,16 @@ bool Game::Initialize()
   // Set the frame rate
   pGameEngine->SetFrameRate(30);
 
-  // Initialize the joystick
-  pGameEngine->InitJoystick();
-  
   //init text
   _ttfFont = TTF_OpenFont("res/DejaVuSans.ttf", 12);
   if ( _ttfFont == nullptr ){
     std::cout << " Failed to load font : " << TTF_GetError() << std::endl;
     return false;
   }
-  
+
+  //Hide the mouse pointer
+  SDL_ShowCursor(false);
+    
   return true;
 }
 
@@ -172,7 +172,7 @@ void Game::Paint()
 						    szText,
 						    _ttfFont,
 						    text_color);
-						    if(text_texture)SDL_RenderCopy(renderer, text_texture, NULL, &rect);
+  if(text_texture)SDL_RenderCopy(renderer, text_texture, NULL, &rect);
   
   
   // Draw the number of guys who were missed (got away)
