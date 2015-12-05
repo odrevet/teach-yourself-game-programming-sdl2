@@ -10,15 +10,15 @@ the GameEngine.cpp file.
 
 * Instead of having global functions in Skeleton.cpp an Interface IGame is
 defined and implemented by a Game class.
-To avoid updating the includes in each chapter, the file named after the chapter
-name in the original code is now always in the Game file.
+To avoid updating the includes in each chapter, the game code in always in the
+Game.cpp file instead of having it in a file named after the chapter name. 
 
 * pGame is no more the instance of the GameEngine but the instance of the newly
 created Game class and the GameEngine use the singleton pattern.
 
 * From now on, only the main.cpp, Game.h and Game.cpp files will contain the game
-specific code, every other files are part of the engine. Every other files are
-part of the Engine and should be consider conceiled by the game developper. 
+specific code, every other files are part of the engine and should be consider
+conceiled for the game developper. 
 
 * in the main function, the following statements
 
