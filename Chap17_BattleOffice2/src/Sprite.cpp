@@ -183,8 +183,16 @@ void Sprite::Draw(SDL_Renderer *renderer)
   }
 
 #ifdef DEBUG
-    SDL_RenderDrawRect(renderer, &this->m_rcBounds);
-    SDL_RenderDrawRect(renderer, &this->m_rcPosition);
-    SDL_RenderDrawRect(renderer, &this->m_rcCollision);
-#endif    
+  //Draw the bound Rect in GREEN
+  SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);  
+  SDL_RenderDrawRect(renderer, &this->m_rcBounds);
+
+  //Draw the Position Rect in BLUE
+  SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);  
+  SDL_RenderDrawRect(renderer, &this->m_rcPosition);
+
+  //Draw the Collision Rect in RED
+  SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);  
+  SDL_RenderDrawRect(renderer, &this->m_rcCollision);
+#endif 
 }

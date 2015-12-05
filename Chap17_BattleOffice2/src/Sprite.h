@@ -106,15 +106,11 @@ inline void Sprite::UpdateFrame()
 }
 
 inline void Sprite::CalcCollisionRect()
-{
-  //int iXShrink = (m_rcPosition.x - m_rcPosition.w) / 12;
-  //int iYShrink = (m_rcPosition.y - m_rcPosition.h) / 12;
-  
+{  
   m_rcCollision.x = m_rcPosition.x;
   m_rcCollision.y = m_rcPosition.y;
-  m_rcCollision.w = m_rcPosition.w;
-  m_rcCollision.h = m_rcPosition.h;
-  
+  m_rcCollision.w = this->GetWidth();
+  m_rcCollision.h = this->GetHeight();  
 }
 
 //-----------------------------------------------------------------
