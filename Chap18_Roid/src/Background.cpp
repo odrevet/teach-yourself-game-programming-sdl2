@@ -88,7 +88,7 @@ StarryBackground::~StarryBackground()
 void StarryBackground::Update()
 {
   // Randomly change the shade of the stars so that they twinkle
-  int iRGB;
+  Uint8 iRGB;
   for (int i = 0; i < m_iNumStars; i++)
     if ((rand() % m_iTwinkleDelay) == 0)
     {
