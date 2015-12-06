@@ -20,7 +20,7 @@ int main (int argc, char* argv[])
   pGameEngine->m_game = pGame;
   
   const char* game_name = "Space Out";
-  const char* game_icon = "res/Roids.ico";
+  const char* game_icon = "res/SpaceOut.ico";
   int window_width = 600;
   int window_height = 450;
 
