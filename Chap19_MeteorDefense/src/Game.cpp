@@ -90,6 +90,14 @@ void Game::End()
   // Cleanup the sprites
   pGameEngine->CleanupSprites();
 
+  //cleanup the sound effects
+  Mix_FreeChunk(_mcFire);
+  Mix_FreeChunk(_mcExplode);
+  Mix_FreeChunk(_mcBigExplode);
+
+  //cleanup the music
+  Mix_FreeMusic(_mmMusic);
+  
   // Cleanup the game engine
   delete pGameEngine;
 }
