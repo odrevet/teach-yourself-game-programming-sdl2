@@ -16,13 +16,3 @@ Full modifications are:
 Thanks to "Michael Morrison" for this very well written and usefull book which
 I hope this new "SDL2" rewrite will enchance the reader experiance, as
 the SDL2 is portable and the API is increadibly concise.
-
-# Note
-
-My recommandation for you is to buy the book, it is more than 10 years old so
-you can find it at a good price. Learn the basics of SDL2 and read the book
-along with those updated examples. Even if the title is
-"Teach Yourself Game Programming in 24 Hours" you can do it in 24 hours but
-you definitly should not (the only reason of the 24 hours thing is because
-it's part of a book serie like "... for the dummies"). Take your time, read a
-few chapters per 24 hours and think about them. 
