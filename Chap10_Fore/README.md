@@ -1,16 +1,17 @@
-#In this chapter a Sprite class is created, which hold an image, a velocity,
+In this chapter a Sprite class is created, which hold an image, a velocity,
 a coordinate and a bound limit (a rectangle) . When the bound limit is reach
 a BOUNDACTION is triggered: 
-*BOUNCE: the sprite velocity are reversed so it bounce.
-*WRAP: the sprite appear at the other side of the bound area.
-*STOP: the sprite stops.
+
+* BOUNCE: the sprite velocity are reversed so it bounce.
+* WRAP: the sprite appear at the other side of the bound area.
+* STOP: the sprite stops.
 
 Three golfball sprites are created, each with a bound differant BOUNDACTION.
 Each golf ball sprite can be drag and drop with the mouse.
 
 There are no collision detection between the sprites in this chapter. 
 
-#About BOUNDACTIONS
+# About BOUNDACTIONS
 the bound action are triggerd in the GameEngine part. In my opinion this is
 a design flaw as the GameEngine is supposed to be opaque to the game developer,
 thus the game developer is now limited to what bound action is present in the
@@ -22,42 +23,42 @@ The advantage is that the code is really simple, which is what the author was
 seeking when writing the code and the book. 
 
 
-#About the rewrite from WIN32 API's RECT to SDL2's SDL_Rect
+# About the rewrite from WIN32 API's RECT to SDL2's SDL_Rect
 
 The WIN32 API define the RECT struct with the fields: 
 
-left
+* left
 
     The x-coordinate of the upper-left corner of the rectangle.
-top
+* top
 
     The y-coordinate of the upper-left corner of the rectangle.
-right
+* right
 
     The x-coordinate of the lower-right corner of the rectangle.
-bottom
+* bottom
 
     The y-coordinate of the lower-right corner of the rectangle.
 
 
 and SDL2 define a SDL_Rect with the fields: 
 
-x
+* x
     The x location of the rectangle's upper left corner
 
-y
+* y
     The y location of the rectangle's upper left corner
 
-w
+* w
     The width of the rectangle
 
-h
+* h
     The height of the rectangle
 
 
 therefore left is x and top is y
 
-#Key differences with the origial code
+# Key differences with the origial code
 * Removed unused variable ptBoundsSize in Sprite::Update
 * Updated algorithm with SDL_Rect
 * in DEBUG mode, the sprite draw his bound rect and his position
