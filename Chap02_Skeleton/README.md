@@ -1,5 +1,5 @@
 In this chapter a simple window is opened with a white background and a black
-text saying "This is a skeleton application! " which beside the window icon behine
+text saying "This is a skeleton application! " which beside the window icon being
 a skeleton icon is an obvious pune as this code will be the skeleton of the
 next chapters.
 
