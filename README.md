@@ -2,7 +2,7 @@ This is an SDL2 rewrite of the examples founds in "Teach Yourself Game Programmi
 ISBN 067232461X, 9780672324611
 Google Books : https://books.google.fr/books/about/Sams_Teach_Yourself_Game_Programming_in.html?id=Ymt93N7FJ5wC
 
-Full modifications are:
+Modifications are:
 
 * Uses SDL2 (removed all WIN32 API calls and RC files)
 * Uses GCC (g++ with C11) and Make (removed all Visual Studio project files)
