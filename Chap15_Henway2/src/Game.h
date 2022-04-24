@@ -16,7 +16,7 @@ using namespace std;
 
 class Game : public IGame
 {
- public:
+public:
   ~Game();
   bool Initialize();
   void Start();
@@ -30,25 +30,25 @@ class Game : public IGame
   void MouseButtonUp(int x, int y, bool bLeft);
   void MouseMove(int x, int y);
   void HandleJoystick(JOYSTATE jsJoystickState);
-  bool SpriteCollision(Sprite* pSpriteHitter, Sprite* pSpriteHittee);
+  bool SpriteCollision(Sprite *pSpriteHitter, Sprite *pSpriteHittee);
 
   void MoveChicken(int iXDistance, int iYDistance);
-    
-  Bitmap*     _pHighwayBitmap;
-  Bitmap*     _pChickenBitmap;
-  Bitmap*     _pCarBitmaps[4];
-  Bitmap*     _pChickenHeadBitmap;
-  Sprite*     _pChickenSprite;
-  int         _iInputDelay;
-  int         _iNumLives;
-  int         _iScore;
-  bool        _bGameOver;
 
-  Mix_Music* _mmMusic;
-  Mix_Chunk* _mcBoc;
-  Mix_Chunk* _mcCarHorn1;
-  Mix_Chunk* _mcCarHorn2;
-  Mix_Chunk* _mcCelebrate;
-  Mix_Chunk* _mcGameOver;
-  Mix_Chunk* _mcSquish;
+  Bitmap *_pHighwayBitmap;
+  Bitmap *_pChickenBitmap;
+  Bitmap *_pCarBitmaps[4];
+  Bitmap *_pChickenHeadBitmap;
+  Sprite *_pChickenSprite;
+  int _iInputDelay;
+  int _iNumLives;
+  int _iScore;
+  bool _bGameOver;
+
+  Mix_Music *_mmMusic;
+  Mix_Chunk *_mcBoc;
+  Mix_Chunk *_mcCarHorn1;
+  Mix_Chunk *_mcCarHorn2;
+  Mix_Chunk *_mcCelebrate;
+  Mix_Chunk *_mcGameOver;
+  Mix_Chunk *_mcSquish;
 };

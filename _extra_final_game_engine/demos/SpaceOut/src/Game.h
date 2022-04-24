@@ -20,7 +20,7 @@ using namespace TYGP;
 
 class Game : public IGame
 {
- public:
+public:
   ~Game();
   bool Initialize();
   void Start();
@@ -34,49 +34,47 @@ class Game : public IGame
   void MouseButtonUp(int x, int y, bool bLeft);
   void MouseMove(int x, int y);
   void HandleJoystick(JOYSTATE jsJoystickState);
-  bool SpriteCollision(Sprite* pSpriteHitter, Sprite* pSpriteHittee);
-  void SpriteDying(Sprite* pSprite);
+  bool SpriteCollision(Sprite *pSpriteHitter, Sprite *pSpriteHittee);
+  void SpriteDying(Sprite *pSprite);
 
   void NewGame();
   void AddAlien();
   void UpdateHiScores();
   bool ReadHiScores();
   bool WriteHiScores();
- 
-  Image*           _pSplashImage;
-  Image*           _pDesertImage;
-  Image*           _pCarImage;
-  Image*           _pSmCarImage;
-  Image*           _pMissileImage;
-  static Image*    _pBlobboImage;
-  static Image*    _pBMissileImage;
-  static Image*    _pJellyImage;
-  static Image*    _pJMissileImage;
-  static Image*    _pTimmyImage;
-  static Image*    _pTMissileImage;
-  Image*           _pSmExplosionImage;
-  Image*           _pLgExplosionImage;
-  Image*           _pGameOverImage;
-  StarryBackground* _pBackground;
-  Sprite*           _pCarSprite;
-  int               _iFireInputDelay;
-  int               _iNumLives, _iScore;
-  static int        _iDifficulty;
-  bool              _bGameOver;
-  int               _iGameOverDelay;
-  bool              _bDemo;
-  int               _iHiScores[5];
-  
-  Mix_Music*        _mmMusic;
-  Mix_Chunk*        _mcMissile;
-  Mix_Chunk*        _mcJMissile;
-  Mix_Chunk*        _mcBMissile;
-  Mix_Chunk*        _mcTMissile;
-  Mix_Chunk*        _mcSmExplode;
-  Mix_Chunk*        _mcLgExplode;
-  Mix_Chunk*        _mcGameOver;
 
-  TTF_Font*          _ttfFont;
+  Image *_pSplashImage;
+  Image *_pDesertImage;
+  Image *_pCarImage;
+  Image *_pSmCarImage;
+  Image *_pMissileImage;
+  static Image *_pBlobboImage;
+  static Image *_pBMissileImage;
+  static Image *_pJellyImage;
+  static Image *_pJMissileImage;
+  static Image *_pTimmyImage;
+  static Image *_pTMissileImage;
+  Image *_pSmExplosionImage;
+  Image *_pLgExplosionImage;
+  Image *_pGameOverImage;
+  StarryBackground *_pBackground;
+  Sprite *_pCarSprite;
+  int _iFireInputDelay;
+  int _iNumLives, _iScore;
+  static int _iDifficulty;
+  bool _bGameOver;
+  int _iGameOverDelay;
+  bool _bDemo;
+  int _iHiScores[5];
 
+  Mix_Music *_mmMusic;
+  Mix_Chunk *_mcMissile;
+  Mix_Chunk *_mcJMissile;
+  Mix_Chunk *_mcBMissile;
+  Mix_Chunk *_mcTMissile;
+  Mix_Chunk *_mcSmExplode;
+  Mix_Chunk *_mcLgExplode;
+  Mix_Chunk *_mcGameOver;
+
+  TTF_Font *_ttfFont;
 };
-

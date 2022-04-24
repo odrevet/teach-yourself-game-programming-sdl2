@@ -12,13 +12,13 @@
 // Game Engine Functions
 //-----------------------------------------------------------------
 
-Game::~Game(){
-
+Game::~Game()
+{
 }
 
 bool Game::Initialize()
 {
-  //get the game engine
+  // get the game engine
   GameEngine *pGameEngine = GameEngine::GetEngine();
 
   // Set the frame rate
@@ -48,10 +48,9 @@ void Game::Start()
   _pCarBitmaps[3] = new Bitmap(renderer, "res/Car4.bmp", &scTrans);
   _pChickenHeadBitmap = new Bitmap(renderer, "res/ChickenHead.bmp", &scTrans);
 
-
   // Create the chicken and car sprites
-  Sprite* pSprite;
-  SDL_Rect    rcBounds = { 0, 0, 465, 400 };
+  Sprite *pSprite;
+  SDL_Rect rcBounds = {0, 0, 465, 400};
   _pChickenSprite = new Sprite(_pChickenBitmap, rcBounds, BA_STOP);
   _pChickenSprite->SetPosition(4, 175);
   _pChickenSprite->SetVelocity(0, 0);
@@ -84,14 +83,18 @@ void Game::Start()
   _iScore = 0;
   _bGameOver = false;
 
-  //Load the music
+  // Load the music
   _mmMusic = Mix_LoadMUS("res/Music.xm");
-  if(_mmMusic==nullptr) cout << "Could not Music\n" <<  Mix_GetError();
-  
-  //Load the sound effects
-  Mix_Chunk* _mcBoc = Mix_LoadWAV("res/Boc.wav");
-  if(_mcBoc==nullptr) cout << "Could not load WAV\n" <<  Mix_GetError();
-  
+  if (_mmMusic == nullptr)
+    cout << "Could not Music\n"
+         << Mix_GetError();
+
+  // Load the sound effects
+  Mix_Chunk *_mcBoc = Mix_LoadWAV("res/Boc.wav");
+  if (_mcBoc == nullptr)
+    cout << "Could not load WAV\n"
+         << Mix_GetError();
+
   _mcCarHorn1 = Mix_LoadWAV("res/CarHorn1.wav");
   _mcCarHorn2 = Mix_LoadWAV("res/CarHorn2.wav");
   _mcCelebrate = Mix_LoadWAV("res/Celebrate.wav");
@@ -109,15 +112,15 @@ void Game::End()
   // Cleanup the sprites
   pGameEngine->CleanupSprites();
 
-  //Cleanup the music
+  // Cleanup the music
   Mix_FreeMusic(_mmMusic);
-  
-  //Cleanup the sound effetcs
+
+  // Cleanup the sound effetcs
   Mix_FreeChunk(_mcCarHorn1);
   Mix_FreeChunk(_mcCarHorn2);
   Mix_FreeChunk(_mcGameOver);
   Mix_FreeChunk(_mcSquish);
-  
+
   // Cleanup the bitmaps
   delete _pHighwayBitmap;
   delete _pChickenBitmap;
@@ -151,8 +154,8 @@ void Game::Paint()
   // Draw the number of remaining chicken lives
   for (int i = 0; i < _iNumLives; i++)
     _pChickenHeadBitmap->Draw(renderer,
-			      406 + (_pChickenHeadBitmap->GetWidth() * i),
-			      382);
+                              406 + (_pChickenHeadBitmap->GetWidth() * i),
+                              382);
 
   SDL_RenderPresent(renderer);
 }
@@ -160,28 +163,31 @@ void Game::Paint()
 void Game::Cycle()
 {
   if (!_bGameOver)
-    {
-      GameEngine *pGameEngine = GameEngine::GetEngine();
+  {
+    GameEngine *pGameEngine = GameEngine::GetEngine();
 
-      // Play a random car sound randomly
-      if (rand() % 100 == 0){
-	if (rand() % 2 == 0)
-	  Mix_PlayChannel(-1, _mcCarHorn1, 0 );
-	else
-	  Mix_PlayChannel(-1, _mcCarHorn2, 0 );
-      }
-      
-      // Update the sprites
-      pGameEngine->UpdateSprites();
+    // Play a random car sound randomly
+    if (rand() % 100 == 0)
+    {
+      if (rand() % 2 == 0)
+        Mix_PlayChannel(-1, _mcCarHorn1, 0);
+      else
+        Mix_PlayChannel(-1, _mcCarHorn2, 0);
     }
+
+    // Update the sprites
+    pGameEngine->UpdateSprites();
+  }
 }
 
-void Game::HandleKeys(){
+void Game::HandleKeys()
+{
   SDL_PumpEvents();
   const Uint8 *state = SDL_GetKeyboardState(NULL);
 
-  //Q
-  if (state[SDL_GetScancodeFromKey(SDLK_q)]) {
+  // Q
+  if (state[SDL_GetScancodeFromKey(SDLK_q)])
+  {
     exit(0);
   }
 
@@ -227,15 +233,15 @@ void Game::HandleJoystick(JOYSTATE jsJoystickState)
   {
     // Check horizontal movement
     if (jsJoystickState & JOY_LEFT)
-        MoveChicken(-20, 0);
+      MoveChicken(-20, 0);
     else if (jsJoystickState & JOY_RIGHT)
-        MoveChicken(20, 0);
+      MoveChicken(20, 0);
 
     // Check vertical movement
     if (jsJoystickState & JOY_UP)
-        MoveChicken(0, -20);
+      MoveChicken(0, -20);
     else if (jsJoystickState & JOY_DOWN)
-        MoveChicken(0, 20);
+      MoveChicken(0, 20);
 
     // Reset the input delay
     _iInputDelay = 0;
@@ -250,7 +256,8 @@ void Game::HandleJoystick(JOYSTATE jsJoystickState)
   }
 }
 
-bool Game::SpriteCollision(Sprite* pSpriteHitter, Sprite* pSpriteHittee){
+bool Game::SpriteCollision(Sprite *pSpriteHitter, Sprite *pSpriteHittee)
+{
   GameEngine *pGameEngine = GameEngine::GetEngine();
 
   // See if the chicken was hit
@@ -267,14 +274,14 @@ bool Game::SpriteCollision(Sprite* pSpriteHitter, Sprite* pSpriteHittee){
     {
       // Play a sound for the game ending
       Mix_PlayChannel(-1, _mcGameOver, 0);
-      
+
       // Display game over message
       char szText[64];
       sprintf(szText, "Game Over! You scored %d points.", _iScore);
-      SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION ,
-			       "Henway",
-			       szText,
-			       pGameEngine->GetWindow());
+      SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,
+                               "Henway",
+                               szText,
+                               pGameEngine->GetWindow());
       _bGameOver = true;
 
       // Pause the background music
@@ -287,14 +294,13 @@ bool Game::SpriteCollision(Sprite* pSpriteHitter, Sprite* pSpriteHittee){
   return true;
 }
 
-
 //-----------------------------------------------------------------
 // Functions
 //-----------------------------------------------------------------
 void Game::MoveChicken(int iXDistance, int iYDistance)
 {
   GameEngine *pGameEngine = GameEngine::GetEngine();
-  
+
   // Move the chicken to its new position
   _pChickenSprite->OffsetPosition(iXDistance, iYDistance);
 
@@ -303,13 +309,13 @@ void Game::MoveChicken(int iXDistance, int iYDistance)
   {
     // Play a sound for the chicken making it safely across
     Mix_PlayChannel(-1, _mcCelebrate, 0);
-    
+
     // Move the chicken back to the start and add to the score
     _pChickenSprite->SetPosition(4, 175);
     _iScore += 150;
-     SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION ,
-			       "Henway",
-			       "You made it!",
-			       pGameEngine->GetWindow());    
+    SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,
+                             "Henway",
+                             "You made it!",
+                             pGameEngine->GetWindow());
   }
 }

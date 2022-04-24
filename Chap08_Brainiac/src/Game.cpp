@@ -12,13 +12,13 @@
 // Game Engine Functions
 //-----------------------------------------------------------------
 
-Game::~Game(){
-
+Game::~Game()
+{
 }
 
 bool Game::Initialize()
 {
-  //get the game engine
+  // get the game engine
   GameEngine *pGameEngine = GameEngine::GetEngine();
 
   // Set the frame rate
@@ -79,7 +79,7 @@ void Game::Start()
 
 void Game::End()
 {
-    // Cleanup the tile bitmaps
+  // Cleanup the tile bitmaps
   for (int i = 0; i < 9; i++)
     delete _pTiles[i];
 
@@ -107,7 +107,7 @@ void Game::Paint()
   for (int i = 0; i < 4; i++)
     for (int j = 0; j < 4; j++)
       if (_bTileStates[i][j] || ((i == _ptTile1.x) && (j == _ptTile1.y)) ||
-        ((i == _ptTile2.x) && (j == _ptTile2.y)))
+          ((i == _ptTile2.x) && (j == _ptTile2.y)))
         _pTiles[_iTiles[i][j]]->Draw(renderer, i * iTileWidth, j * iTileHeight);
       else
         _pTiles[0]->Draw(renderer, i * iTileWidth, j * iTileHeight);
@@ -119,20 +119,22 @@ void Game::Cycle()
 {
 }
 
-void Game::HandleKeys(){
+void Game::HandleKeys()
+{
   SDL_PumpEvents();
   const Uint8 *state = SDL_GetKeyboardState(NULL);
 
-  //Q
-  if (state[SDL_GetScancodeFromKey(SDLK_q)]) {
+  // Q
+  if (state[SDL_GetScancodeFromKey(SDLK_q)])
+  {
     exit(0);
   }
 }
 
 void Game::MouseButtonDown(int x, int y, bool bLeft)
 {
-  GameEngine* pGE = GameEngine::GetEngine();
-  SDL_Renderer* renderer = pGE->GetRenderer();
+  GameEngine *pGE = GameEngine::GetEngine();
+  SDL_Renderer *renderer = pGE->GetRenderer();
 
   // Determine which tile was clicked
   int iTileX = x / _pTiles[0]->GetWidth();
@@ -174,10 +176,10 @@ void Game::MouseButtonDown(int x, int y, bool bLeft)
           {
             char szText[64];
             sprintf(szText, "You won in %d tries.", _iTries);
-	    SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION ,
-				     "Brainiac",
-				     szText,
-				     pGE->GetWindow());
+            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,
+                                     "Brainiac",
+                                     szText,
+                                     pGE->GetWindow());
           }
         }
       }

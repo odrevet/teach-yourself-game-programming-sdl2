@@ -19,11 +19,11 @@ class AlienSprite : public Sprite
 {
 public:
   // Constructor(s)/Destructor
-          AlienSprite(Bitmap* pBitmap, SDL_Rect& rcBounds,
-            BOUNDSACTION baBoundsAction = BA_STOP);
+  AlienSprite(Bitmap *pBitmap, SDL_Rect &rcBounds,
+              BOUNDSACTION baBoundsAction = BA_STOP);
   virtual ~AlienSprite();
 
   // General Methods
-  virtual SPRITEACTION  Update();
-  virtual Sprite*       AddSprite();
+  virtual SPRITEACTION Update();
+  virtual Sprite *AddSprite();
 };

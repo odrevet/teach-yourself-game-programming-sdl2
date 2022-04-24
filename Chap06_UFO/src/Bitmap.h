@@ -20,8 +20,8 @@ class Bitmap
 {
 protected:
   // Member Variables
-  SDL_Texture* m_hBitmap;
-  int          m_iWidth, m_iHeight;
+  SDL_Texture *m_hBitmap;
+  int m_iWidth, m_iHeight;
 
   // Helper Methods
   void Free();
@@ -29,13 +29,13 @@ protected:
 public:
   // Constructor(s)/Destructor
   Bitmap();
-  Bitmap(SDL_Renderer* renderer,
-	 const char* szFileNamebool,
-	 SDL_Color *scTransColor = nullptr);
+  Bitmap(SDL_Renderer *renderer,
+         const char *szFileNamebool,
+         SDL_Color *scTransColor = nullptr);
   virtual ~Bitmap();
 
   // General Methods
-  void Draw(SDL_Renderer* renderer, int x, int y);
-  int  GetWidth() { return m_iWidth; };
-  int  GetHeight() { return m_iHeight; };
+  void Draw(SDL_Renderer *renderer, int x, int y);
+  int GetWidth() { return m_iWidth; };
+  int GetHeight() { return m_iHeight; };
 };

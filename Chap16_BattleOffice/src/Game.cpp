@@ -12,28 +12,29 @@
 // Game Engine Functions
 //-----------------------------------------------------------------
 
-Game::~Game(){
-
+Game::~Game()
+{
 }
 
 bool Game::Initialize()
 {
-  //get the game engine
+  // get the game engine
   GameEngine *pGameEngine = GameEngine::GetEngine();
 
   // Set the frame rate
   pGameEngine->SetFrameRate(30);
 
-  //init text
+  // init text
   _ttfFont = TTF_OpenFont("res/DejaVuSans.ttf", 12);
-  if ( _ttfFont == nullptr ){
+  if (_ttfFont == nullptr)
+  {
     std::cout << " Failed to load font : " << TTF_GetError() << std::endl;
     return false;
   }
 
-  //Hide the mouse pointer
+  // Hide the mouse pointer
   SDL_ShowCursor(false);
-    
+
   return true;
 }
 
@@ -59,7 +60,7 @@ void Game::Start()
   _pGameOverBitmap = new Bitmap(renderer, "res/GameOver.bmp", &scTrans);
 
   // Create the target, pow, and guy sprites
-  SDL_Rect rcBounds = { 0, 0, 500, 400 };
+  SDL_Rect rcBounds = {0, 0, 500, 400};
   _pTargetSprite = new Sprite(_pTargetBitmap, rcBounds, BA_STOP);
   _pTargetSprite->SetZOrder(4);
   pGE->AddSprite(_pTargetSprite);
@@ -102,16 +103,17 @@ void Game::Start()
   _iHits = 0;
   _iMisses = 0;
   _bGameOver = false;
-  
-  //Load the music
-  _mmMusic = Mix_LoadMUS("res/Music.xm");
-  if(_mmMusic==nullptr) cout << "Could not play music: " <<  Mix_GetError();
 
-  //Load the sound effetcs
+  // Load the music
+  _mmMusic = Mix_LoadMUS("res/Music.xm");
+  if (_mmMusic == nullptr)
+    cout << "Could not play music: " << Mix_GetError();
+
+  // Load the sound effetcs
   _mcWhack = Mix_LoadWAV("res/Whack.wav");
   _mcTaunt = Mix_LoadWAV("res/Taunt.wav");
   _mcBoo = Mix_LoadWAV("res/Boo.wav");
-  
+
   // Play the background music
   pGE->PlaySong(_mmMusic);
 }
@@ -123,14 +125,14 @@ void Game::End()
   // Cleanup the sprites
   pGameEngine->CleanupSprites();
 
-  //Cleanup the music
+  // Cleanup the music
   Mix_FreeMusic(_mmMusic);
-  
-  //Cleanup the sound effects
+
+  // Cleanup the sound effects
   Mix_FreeChunk(_mcWhack);
   Mix_FreeChunk(_mcTaunt);
   Mix_FreeChunk(_mcBoo);
-  
+
   // Cleanup the bitmaps
   delete _pOfficeBitmap;
   delete _pTargetBitmap;
@@ -165,32 +167,32 @@ void Game::Paint()
 
   // Draw the number of guys who were hit
   char szText[64];
-  SDL_Rect  rect = { 237, 360, 50, 50 };
+  SDL_Rect rect = {237, 360, 50, 50};
   sprintf(szText, " %d ", _iHits);
   SDL_Color text_color = {120, 120, 120};
   SDL_Texture *text_texture = pGameEngine->DrawText(renderer,
-						    szText,
-						    _ttfFont,
-						    text_color);
-  if(text_texture)SDL_RenderCopy(renderer, text_texture, NULL, &rect);
-  
-  
+                                                    szText,
+                                                    _ttfFont,
+                                                    text_color);
+  if (text_texture)
+    SDL_RenderCopy(renderer, text_texture, NULL, &rect);
+
   // Draw the number of guys who were missed (got away)
   for (int i = 0; i < _iMisses; i++)
     _pSmallGuyBitmap->Draw(renderer,
-			   389 + (_pSmallGuyBitmap->GetWidth() * i),
-			   359);
+                           389 + (_pSmallGuyBitmap->GetWidth() * i),
+                           359);
 
   // Draw the game over message, if necessary
   if (_bGameOver)
     _pGameOverBitmap->Draw(renderer, 120, 110);
-  
+
   SDL_RenderPresent(renderer);
 }
 
 void Game::Cycle()
 {
-  GameEngine *pGameEngine = GameEngine::GetEngine();  
+  GameEngine *pGameEngine = GameEngine::GetEngine();
   if (!_bGameOver)
   {
     // Randomly show and hide the guys
@@ -225,8 +227,8 @@ void Game::Cycle()
         if (--_iGuyDelay[i] == 0)
         {
           // Play a sound for the guy getting away
-	  Mix_PlayChannel(-1, _mcTaunt, 0 );
-	  
+          Mix_PlayChannel(-1, _mcTaunt, 0);
+
           // Hide the guy
           _pGuySprites[i]->SetHidden(true);
 
@@ -234,7 +236,7 @@ void Game::Cycle()
           if (++_iMisses == 5)
           {
             // Play a sound for the game ending
-	    Mix_PlayChannel(-1, _mcBoo, 0 );
+            Mix_PlayChannel(-1, _mcBoo, 0);
 
             // End the game
             for (int i = 0; i < 5; i++)
@@ -252,12 +254,14 @@ void Game::Cycle()
   }
 }
 
-void Game::HandleKeys(){
+void Game::HandleKeys()
+{
   SDL_PumpEvents();
   const Uint8 *state = SDL_GetKeyboardState(NULL);
 
-  //Q
-  if (state[SDL_GetScancodeFromKey(SDLK_q)]) {
+  // Q
+  if (state[SDL_GetScancodeFromKey(SDLK_q)])
+  {
     exit(0);
   }
 }
@@ -265,7 +269,7 @@ void Game::HandleKeys(){
 void Game::MouseButtonDown(int x, int y, bool bLeft)
 {
   GameEngine *pGameEngine = GameEngine::GetEngine();
-  
+
   // Only check the left mouse button
   if (!_bGameOver && bLeft)
   {
@@ -274,15 +278,15 @@ void Game::MouseButtonDown(int x, int y, bool bLeft)
     _pPowSprite->SetHidden(true);
 
     // See if a guy sprite was clicked
-    Sprite* pSprite;
+    Sprite *pSprite;
     if ((pSprite = pGameEngine->IsPointInSprite(x, y)) != NULL)
     {
       // Play a sound for hitting the guy
-       Mix_PlayChannel(-1, _mcWhack, 0 );
+      Mix_PlayChannel(-1, _mcWhack, 0);
 
       // Position and show the pow sprite
       _pPowSprite->SetPosition(x - (_pPowSprite->GetWidth() / 2),
-        y - (_pPowSprite->GetHeight() / 2));
+                               y - (_pPowSprite->GetHeight() / 2));
       _pPowSprite->SetHidden(false);
 
       // Hide the guy that was clicked
@@ -317,14 +321,14 @@ void Game::MouseMove(int x, int y)
 {
   // Track the mouse with the target sprite
   _pTargetSprite->SetPosition(x - (_pTargetSprite->GetWidth() / 2),
-    y - (_pTargetSprite->GetHeight() / 2));  
+                              y - (_pTargetSprite->GetHeight() / 2));
 }
 
 void Game::HandleJoystick(JOYSTATE jsJoystickState)
 {
-
 }
 
-bool Game::SpriteCollision(Sprite* pSpriteHitter, Sprite* pSpriteHittee){
+bool Game::SpriteCollision(Sprite *pSpriteHitter, Sprite *pSpriteHittee)
+{
   return false;
 }

@@ -12,20 +12,20 @@
 // Game Engine Functions
 //-----------------------------------------------------------------
 
-Game::~Game(){
-
+Game::~Game()
+{
 }
 
 bool Game::Initialize()
 {
-  //get the game engine
+  // get the game engine
   GameEngine *pGameEngine = GameEngine::GetEngine();
 
   // Set the frame rate
   pGameEngine->SetFrameRate(30);
 
   // Initialize the joystick
-  
+
   return true;
 }
 
@@ -45,8 +45,8 @@ void Game::Start()
   _pBackground = new StarryBackground(500, 400);
 
   // Create the asteroid sprites
-  SDL_Rect    rcBounds = { 0, 0, 500, 400 };
-  Sprite* pSprite;
+  SDL_Rect rcBounds = {0, 0, 500, 400};
+  Sprite *pSprite;
   pSprite = new Sprite(_pAsteroidBitmap, rcBounds, BA_WRAP);
   pSprite->SetNumFrames(14);
   pSprite->SetFrameDelay(1);
@@ -65,7 +65,6 @@ void Game::Start()
   pSprite->SetPosition(250, 200);
   pSprite->SetVelocity(-2, -4);
   pGE->AddSprite(pSprite);
-  
 }
 
 void Game::End()
@@ -77,7 +76,7 @@ void Game::End()
 
   // Cleanup the background
   delete _pBackground;
-  
+
   // Cleanup the sprites
   pGameEngine->CleanupSprites();
 
@@ -100,37 +99,38 @@ void Game::Paint()
 
   // Draw the background
   _pBackground->Draw(renderer);
-  
+
   // Draw the sprites
   pGameEngine->DrawSprites();
-  
+
   SDL_RenderPresent(renderer);
 }
 
 void Game::Cycle()
 {
   GameEngine *pGameEngine = GameEngine::GetEngine();
-  
+
   // Update the background
   _pBackground->Update();
 
   // Update the sprites
-  pGameEngine->UpdateSprites();  
+  pGameEngine->UpdateSprites();
 }
 
-void Game::HandleKeys(){
+void Game::HandleKeys()
+{
   SDL_PumpEvents();
   const Uint8 *state = SDL_GetKeyboardState(NULL);
 
-  //Q
-  if (state[SDL_GetScancodeFromKey(SDLK_q)]) {
+  // Q
+  if (state[SDL_GetScancodeFromKey(SDLK_q)])
+  {
     exit(0);
   }
 }
 
 void Game::MouseButtonDown(int x, int y, bool bLeft)
 {
-
 }
 
 void Game::MouseButtonUp(int x, int y, bool bLeft)
@@ -138,14 +138,14 @@ void Game::MouseButtonUp(int x, int y, bool bLeft)
 }
 
 void Game::MouseMove(int x, int y)
-{ 
+{
 }
 
 void Game::HandleJoystick(JOYSTATE jsJoystickState)
 {
-
 }
 
-bool Game::SpriteCollision(Sprite* pSpriteHitter, Sprite* pSpriteHittee){
+bool Game::SpriteCollision(Sprite *pSpriteHitter, Sprite *pSpriteHittee)
+{
   return false;
 }

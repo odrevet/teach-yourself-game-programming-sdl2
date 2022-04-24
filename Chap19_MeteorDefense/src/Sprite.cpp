@@ -11,11 +11,11 @@
 //-----------------------------------------------------------------
 // Sprite Constructor(s)/Destructor
 //-----------------------------------------------------------------
-Sprite::Sprite(Bitmap* pBitmap)
+Sprite::Sprite(Bitmap *pBitmap)
 {
   // Initialize the member variables
   m_pBitmap = pBitmap;
-  m_rcPosition.x =  0;
+  m_rcPosition.x = 0;
   m_rcPosition.y = 0;
   m_rcPosition.w = pBitmap->GetWidth();
   m_rcPosition.h = pBitmap->GetHeight();
@@ -29,7 +29,7 @@ Sprite::Sprite(Bitmap* pBitmap)
   m_bHidden = false;
 }
 
-Sprite::Sprite(Bitmap* pBitmap, SDL_Rect& rcBounds, BOUNDSACTION baBoundsAction)
+Sprite::Sprite(Bitmap *pBitmap, SDL_Rect &rcBounds, BOUNDSACTION baBoundsAction)
 {
   // Calculate a random position
   int iXPos = rand() % (rcBounds.w - rcBounds.x);
@@ -49,16 +49,16 @@ Sprite::Sprite(Bitmap* pBitmap, SDL_Rect& rcBounds, BOUNDSACTION baBoundsAction)
   m_baBoundsAction = baBoundsAction;
   m_bHidden = false;
   m_bDying = false;
-  m_bOneCycle = false;  
+  m_bOneCycle = false;
 }
 
-Sprite::Sprite(Bitmap* pBitmap, SDL_Point ptPosition, SDL_Point ptVelocity, int iZOrder,
-    SDL_Rect& rcBounds, BOUNDSACTION baBoundsAction)
+Sprite::Sprite(Bitmap *pBitmap, SDL_Point ptPosition, SDL_Point ptVelocity, int iZOrder,
+               SDL_Rect &rcBounds, BOUNDSACTION baBoundsAction)
 {
   // Initialize the member variables
   m_pBitmap = pBitmap;
   m_iNumFrames = 1;
-  m_iCurFrame = m_iFrameDelay = m_iFrameTrigger = 0;  
+  m_iCurFrame = m_iFrameDelay = m_iFrameTrigger = 0;
   m_rcPosition.x = ptPosition.x;
   m_rcPosition.y = ptPosition.y;
   m_rcPosition.w = pBitmap->GetWidth();
@@ -81,18 +81,18 @@ Sprite::~Sprite()
 //-----------------------------------------------------------------
 SPRITEACTION Sprite::Update()
 {
-    // See if the sprite needs to be killed
+  // See if the sprite needs to be killed
   if (m_bDying)
     return SA_KILL;
-  
+
   // Update the frame
   UpdateFrame();
-  
+
   // Update the position
   SDL_Point ptNewPosition, ptSpriteSize;
   ptNewPosition.x = m_rcPosition.x + m_ptVelocity.x;
   ptNewPosition.y = m_rcPosition.y + m_ptVelocity.y;
-  
+
   ptSpriteSize.x = m_rcPosition.w;
   ptSpriteSize.y = m_rcPosition.h;
 
@@ -145,26 +145,26 @@ SPRITEACTION Sprite::Update()
   else if (m_baBoundsAction == BA_DIE)
   {
     if ((ptNewPosition.x + ptSpriteSize.x) < m_rcBounds.x ||
-      ptNewPosition.x > m_rcBounds.w ||
-      (ptNewPosition.y + ptSpriteSize.y) < m_rcBounds.y ||
-      ptNewPosition.y > m_rcBounds.h)
+        ptNewPosition.x > m_rcBounds.w ||
+        (ptNewPosition.y + ptSpriteSize.y) < m_rcBounds.y ||
+        ptNewPosition.y > m_rcBounds.h)
       return SA_KILL;
-  }  
+  }
   // Stop (default)
   else
   {
-    if (ptNewPosition.x  < m_rcBounds.x ||
-      ptNewPosition.x > (m_rcBounds.w - ptSpriteSize.x))
+    if (ptNewPosition.x < m_rcBounds.x ||
+        ptNewPosition.x > (m_rcBounds.w - ptSpriteSize.x))
     {
       ptNewPosition.x = std::max(m_rcBounds.x, std::min(ptNewPosition.x,
-        m_rcBounds.w - ptSpriteSize.x));
+                                                        m_rcBounds.w - ptSpriteSize.x));
       SetVelocity(0, 0);
     }
-    if (ptNewPosition.y  < m_rcBounds.y ||
-      ptNewPosition.y > (m_rcBounds.h - ptSpriteSize.y))
+    if (ptNewPosition.y < m_rcBounds.y ||
+        ptNewPosition.y > (m_rcBounds.h - ptSpriteSize.y))
     {
       ptNewPosition.y = std::max(m_rcBounds.y, std::min(ptNewPosition.y,
-        m_rcBounds.h - ptSpriteSize.y));
+                                                        m_rcBounds.h - ptSpriteSize.y));
       SetVelocity(0, 0);
     }
   }
@@ -176,31 +176,32 @@ SPRITEACTION Sprite::Update()
 void Sprite::Draw(SDL_Renderer *renderer)
 {
   // Draw the sprite if it isn't hidden
-  if (m_pBitmap != NULL && !m_bHidden){
+  if (m_pBitmap != NULL && !m_bHidden)
+  {
     // Draw the appropriate frame, if necessary
     if (m_iNumFrames == 1)
       m_pBitmap->Draw(renderer, m_rcPosition.x, m_rcPosition.y);
     else
       m_pBitmap->DrawPart(renderer,
-			  m_rcPosition.x,
-			  m_rcPosition.y,
-			  m_iCurFrame * GetWidth(),
-			  0,
-			  GetWidth(),
-			  GetHeight());
+                          m_rcPosition.x,
+                          m_rcPosition.y,
+                          m_iCurFrame * GetWidth(),
+                          0,
+                          GetWidth(),
+                          GetHeight());
   }
 
 #ifdef DEBUG
-  //Draw the bound Rect in GREEN
-  SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);  
+  // Draw the bound Rect in GREEN
+  SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
   SDL_RenderDrawRect(renderer, &this->m_rcBounds);
 
-  //Draw the Position Rect in BLUE
-  SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);  
+  // Draw the Position Rect in BLUE
+  SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
   SDL_RenderDrawRect(renderer, &this->m_rcPosition);
 
-  //Draw the Collision Rect in RED
-  SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);  
+  // Draw the Collision Rect in RED
+  SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
   SDL_RenderDrawRect(renderer, &this->m_rcCollision);
-#endif    
+#endif
 }

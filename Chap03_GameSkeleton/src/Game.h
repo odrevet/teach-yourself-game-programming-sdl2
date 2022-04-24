@@ -11,7 +11,7 @@
 
 class Game : public IGame
 {
- public:
+public:
   ~Game();
   bool Initialize();
   void Start();
@@ -22,5 +22,5 @@ class Game : public IGame
   void Cycle();
 
   SDL_Texture *icon;
-  void DrawImage(SDL_Renderer *renderer, int x, int y);  
+  void DrawImage(SDL_Renderer *renderer, int x, int y);
 };

@@ -12,13 +12,13 @@
 // Game Engine Functions
 //-----------------------------------------------------------------
 
-Game::~Game(){
-
+Game::~Game()
+{
 }
 
 bool Game::Initialize()
 {
-  //get the game engine
+  // get the game engine
   GameEngine *pGameEngine = GameEngine::GetEngine();
 
   // Set the frame rate
@@ -41,7 +41,7 @@ void Game::Start()
   _pGolfBallBitmap = new Bitmap(renderer, "res/GolfBall.bmp", &scTransColor);
 
   // Create the golf ball sprites
-  SDL_Rect rcBounds = { 0, 0, 600, 400 };
+  SDL_Rect rcBounds = {0, 0, 600, 400};
   _pGolfBallSprite[0] = new Sprite(_pGolfBallBitmap, rcBounds);
   _pGolfBallSprite[1] = new Sprite(_pGolfBallBitmap, rcBounds, BA_WRAP);
   _pGolfBallSprite[2] = new Sprite(_pGolfBallBitmap, rcBounds, BA_BOUNCE);
@@ -52,7 +52,6 @@ void Game::Start()
   // Set the initial drag info
   _bDragging = false;
   _iDragBall = -1;
-
 }
 
 void Game::End()
@@ -89,7 +88,7 @@ void Game::Paint()
   // Draw the golf ball sprites
   for (int i = 0; i < 3; i++)
     _pGolfBallSprite[i]->Draw(renderer);
-  
+
   SDL_RenderPresent(renderer);
 }
 
@@ -98,15 +97,16 @@ void Game::Cycle()
   // Update the golf ball sprites
   for (int i = 0; i < 3; i++)
     _pGolfBallSprite[i]->Update();
-
 }
 
-void Game::HandleKeys(){
+void Game::HandleKeys()
+{
   SDL_PumpEvents();
   const Uint8 *state = SDL_GetKeyboardState(NULL);
 
-  //Q
-  if (state[SDL_GetScancodeFromKey(SDLK_q)]) {
+  // Q
+  if (state[SDL_GetScancodeFromKey(SDLK_q)])
+  {
     exit(0);
   }
 }
@@ -123,9 +123,9 @@ void Game::MouseButtonDown(int x, int y, bool bLeft)
         _bDragging = true;
         _iDragBall = i;
 #ifdef DEBUG
-	printf("dragging ball %d\n", i);
+        printf("dragging ball %d\n", i);
 #endif
-	
+
         // Simulate a mouse move to get started
         MouseMove(x, y);
 
@@ -150,14 +150,14 @@ void Game::MouseMove(int x, int y)
   {
 #ifdef DEBUG
     printf("moving ball %d to %d %d\n",
-	   _iDragBall,
-	   x - (_pGolfBallBitmap->GetWidth() / 2),
-	   y - (_pGolfBallBitmap->GetHeight() / 2));
-#endif    
+           _iDragBall,
+           x - (_pGolfBallBitmap->GetWidth() / 2),
+           y - (_pGolfBallBitmap->GetHeight() / 2));
+#endif
     // Move the sprite to the mouse cursor position
     _pGolfBallSprite[_iDragBall]->SetPosition(
-      x - (_pGolfBallBitmap->GetWidth() / 2),
-      y - (_pGolfBallBitmap->GetHeight() / 2));
+        x - (_pGolfBallBitmap->GetWidth() / 2),
+        y - (_pGolfBallBitmap->GetHeight() / 2));
   }
 }
 

@@ -12,13 +12,13 @@
 // Game Engine Functions
 //-----------------------------------------------------------------
 
-Game::~Game(){
-
+Game::~Game()
+{
 }
 
 bool Game::Initialize()
 {
-  //get the game engine
+  // get the game engine
   GameEngine *pGameEngine = GameEngine::GetEngine();
 
   // Set the frame rate
@@ -26,7 +26,7 @@ bool Game::Initialize()
 
   // Initialize the joystick
   pGameEngine->InitJoystick();
-    
+
   return true;
 }
 
@@ -49,7 +49,7 @@ void Game::Start()
   _iSaucerX = 250 - (_pSaucer[0]->GetWidth() / 2);
   _iSaucerY = 200 - (_pSaucer[0]->GetHeight() / 2);
   _iSpeedX = 0;
-  _iSpeedY = 0;  
+  _iSpeedY = 0;
 }
 
 void Game::End()
@@ -58,7 +58,7 @@ void Game::End()
   delete _pBackground;
   delete _pSaucer[0];
   delete _pSaucer[1];
-  
+
   // Cleanup the game engine
   GameEngine *pGameEngine = GameEngine::GetEngine();
   delete pGameEngine;
@@ -74,12 +74,12 @@ void Game::Deactivate()
 
 void Game::Paint()
 {
-  GameEngine* pGE = GameEngine::GetEngine();
-  SDL_Renderer* renderer = pGE->GetRenderer();
+  GameEngine *pGE = GameEngine::GetEngine();
+  SDL_Renderer *renderer = pGE->GetRenderer();
 
   // Draw the background and saucer bitmaps
   _pBackground->Draw(renderer, 0, 0);
-  _pSaucer[_bSaucerFlame ? 1:0]->Draw(renderer, _iSaucerX, _iSaucerY);
+  _pSaucer[_bSaucerFlame ? 1 : 0]->Draw(renderer, _iSaucerX, _iSaucerY);
 
   // Force a repaint to redraw the saucer
   SDL_RenderPresent(renderer);
@@ -89,76 +89,82 @@ void Game::Cycle()
 {
   // Update the saucer position
   _iSaucerX = std::min(500 - _pSaucer[0]->GetWidth(),
-		       std::max(0, _iSaucerX + _iSpeedX));
-  
+                       std::max(0, _iSaucerX + _iSpeedX));
+
   _iSaucerY = std::min(320,
-		       std::max(0, _iSaucerY + _iSpeedY));  
+                       std::max(0, _iSaucerY + _iSpeedY));
 }
 
-void Game::HandleKeys(){
+void Game::HandleKeys()
+{
   SDL_PumpEvents();
   const Uint8 *state = SDL_GetKeyboardState(NULL);
 
-  //Q
-  if (state[SDL_GetScancodeFromKey(SDLK_q)]) {
+  // Q
+  if (state[SDL_GetScancodeFromKey(SDLK_q)])
+  {
     exit(0);
   }
 
-  //UP
-  if (state[SDL_SCANCODE_UP]){
+  // UP
+  if (state[SDL_SCANCODE_UP])
+  {
     _iSpeedY--;
     _iSpeedY = std::max(-_iMAXSPEED, _iSpeedY);
 
 #ifdef DEBUG
     std::cout << "up key down. Y Speed is " << _iSpeedY << std::endl;
-#endif    
+#endif
   }
 
-  //RIGHT
-  if (state[SDL_SCANCODE_RIGHT]){
+  // RIGHT
+  if (state[SDL_SCANCODE_RIGHT])
+  {
     _iSpeedX++;
     _iSpeedX = std::min(_iMAXSPEED, _iSpeedX);
 
 #ifdef DEBUG
     std::cout << "right key down. X Speed is " << _iSpeedX << std::endl;
-#endif    
+#endif
   }
 
-  //DOWN
-  if (state[SDL_SCANCODE_DOWN]){
+  // DOWN
+  if (state[SDL_SCANCODE_DOWN])
+  {
     _iSpeedY++;
     _iSpeedY = std::min(_iMAXSPEED, _iSpeedY);
 
 #ifdef DEBUG
     std::cout << "down key down. Y Speed is " << _iSpeedY << std::endl;
-#endif    
+#endif
   }
 
-  //LEFT
-  if (state[SDL_SCANCODE_LEFT]){
+  // LEFT
+  if (state[SDL_SCANCODE_LEFT])
+  {
     _iSpeedX--;
     _iSpeedX = std::max(-_iMAXSPEED, _iSpeedX);
 
 #ifdef DEBUG
     std::cout << "left key down. X Speed is " << _iSpeedX << std::endl;
-#endif    
+#endif
   }
 }
 
 void Game::MouseButtonDown(int x, int y, bool bLeft)
 {
   if (bLeft)
-    {
-      // Set the saucer position to the mouse position
-      _iSaucerX = x - (_pSaucer[0]->GetWidth() / 2);
-      _iSaucerY = y - (_pSaucer[0]->GetHeight() / 2);
-    }
+  {
+    // Set the saucer position to the mouse position
+    _iSaucerX = x - (_pSaucer[0]->GetWidth() / 2);
+    _iSaucerY = y - (_pSaucer[0]->GetHeight() / 2);
+  }
   else
-    {
-      // Stop the saucer
-      _iSpeedX = 0;
-      _iSpeedY = 0;
-    }
+  {
+    // Stop the saucer
+    _iSpeedX = 0;
+    _iSpeedY = 0;
+  }
 }
 
 void Game::MouseButtonUp(int x, int y, bool bLeft)

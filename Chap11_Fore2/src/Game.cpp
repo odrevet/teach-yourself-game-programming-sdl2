@@ -12,13 +12,13 @@
 // Game Engine Functions
 //-----------------------------------------------------------------
 
-Game::~Game(){
-
+Game::~Game()
+{
 }
 
 bool Game::Initialize()
 {
-  //get the game engine
+  // get the game engine
   GameEngine *pGameEngine = GameEngine::GetEngine();
 
   // Set the frame rate
@@ -41,15 +41,17 @@ void Game::Start()
   _pGolfBallBitmap = new Bitmap(renderer, "res/GolfBall.bmp", &scTransColor);
 
   // Create the golf ball sprites
-  SDL_Rect rcBounds = { 0, 0, 600, 400 };
-  Sprite*  pSprite;
+  SDL_Rect rcBounds = {0, 0, 600, 400};
+  Sprite *pSprite;
   pSprite = new Sprite(_pGolfBallBitmap, rcBounds, BA_WRAP);
   pSprite->SetVelocity(5, 3);
   pGE->AddSprite(pSprite);
   pSprite = new Sprite(_pGolfBallBitmap, rcBounds, BA_WRAP);
   pSprite->SetVelocity(3, 2);
   pGE->AddSprite(pSprite);
-  rcBounds.x = 265; rcBounds.w = 500; rcBounds.h = 335;
+  rcBounds.x = 265;
+  rcBounds.w = 500;
+  rcBounds.h = 335;
   pSprite = new Sprite(_pGolfBallBitmap, rcBounds, BA_BOUNCE);
   pSprite->SetVelocity(-6, 5);
   pGE->AddSprite(pSprite);
@@ -69,10 +71,10 @@ void Game::End()
   delete _pGolfBallBitmap;
 
   GameEngine *pGameEngine = GameEngine::GetEngine();
-    
+
   // Cleanup the sprites
   pGameEngine->CleanupSprites();
-  
+
   // Cleanup the game engine
   delete pGameEngine;
 }
@@ -95,24 +97,26 @@ void Game::Paint()
 
   // Draw the sprites
   pGameEngine->DrawSprites();
-  
+
   SDL_RenderPresent(renderer);
 }
 
 void Game::Cycle()
 {
   GameEngine *pGameEngine = GameEngine::GetEngine();
-  
+
   // Update the sprites
-  pGameEngine->UpdateSprites();  
+  pGameEngine->UpdateSprites();
 }
 
-void Game::HandleKeys(){
+void Game::HandleKeys()
+{
   SDL_PumpEvents();
   const Uint8 *state = SDL_GetKeyboardState(NULL);
 
-  //Q
-  if (state[SDL_GetScancodeFromKey(SDLK_q)]) {
+  // Q
+  if (state[SDL_GetScancodeFromKey(SDLK_q)])
+  {
     exit(0);
   }
 }
@@ -120,7 +124,7 @@ void Game::HandleKeys(){
 void Game::MouseButtonDown(int x, int y, bool bLeft)
 {
   GameEngine *pGameEngine = GameEngine::GetEngine();
-  
+
   // See if a ball was clicked with the left mouse button
   if (bLeft && (_pDragSprite == NULL))
   {
@@ -135,16 +139,16 @@ void Game::MouseButtonDown(int x, int y, bool bLeft)
 void Game::MouseButtonUp(int x, int y, bool bLeft)
 {
   // Stop dragging
-  _pDragSprite = NULL;  
+  _pDragSprite = NULL;
 }
 
 void Game::MouseMove(int x, int y)
 {
-    if (_pDragSprite != NULL)
+  if (_pDragSprite != NULL)
   {
     // Move the sprite to the mouse cursor position
     _pDragSprite->SetPosition(x - (_pDragSprite->GetWidth() / 2),
-      y - (_pDragSprite->GetHeight() / 2));
+                              y - (_pDragSprite->GetHeight() / 2));
   }
 }
 
@@ -152,7 +156,8 @@ void Game::HandleJoystick(JOYSTATE jsJoystickState)
 {
 }
 
-bool Game::SpriteCollision(Sprite* pSpriteHitter, Sprite* pSpriteHittee){
+bool Game::SpriteCollision(Sprite *pSpriteHitter, Sprite *pSpriteHittee)
+{
   // Swap the sprite velocities so that they appear to bounce
   SDL_Point ptSwapVelocity = pSpriteHitter->GetVelocity();
   pSpriteHitter->SetVelocity(pSpriteHittee->GetVelocity());

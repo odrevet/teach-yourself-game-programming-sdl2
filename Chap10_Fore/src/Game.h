@@ -15,7 +15,7 @@ using namespace std;
 
 class Game : public IGame
 {
- public:
+public:
   ~Game();
   bool Initialize();
   void Start();
@@ -30,9 +30,9 @@ class Game : public IGame
   void MouseMove(int x, int y);
   void HandleJoystick(JOYSTATE jsJoystickState);
 
-  Bitmap*     _pForestBitmap;
-  Bitmap*     _pGolfBallBitmap;
-  Sprite*     _pGolfBallSprite[3];
-  bool        _bDragging;
-  int         _iDragBall;
+  Bitmap *_pForestBitmap;
+  Bitmap *_pGolfBallBitmap;
+  Sprite *_pGolfBallSprite[3];
+  bool _bDragging;
+  int _iDragBall;
 };

@@ -12,27 +12,27 @@
 // Game Engine Functions
 //-----------------------------------------------------------------
 
-Game::~Game(){
-
+Game::~Game()
+{
 }
 
 bool Game::Initialize()
 {
-  //get the game engine
-  GameEngine *pGameEngine = GameEngine::GetEngine();  
+  // get the game engine
+  GameEngine *pGameEngine = GameEngine::GetEngine();
   pGameEngine->SetFrameRate(15);
 
-  //load the icon to draw on the screen
-  SDL_Surface* icon_surface = IMG_Load("res/Skeleton.png");
-  if(icon_surface == nullptr)
+  // load the icon to draw on the screen
+  SDL_Surface *icon_surface = IMG_Load("res/Skeleton.png");
+  if (icon_surface == nullptr)
     std::cout << SDL_GetError() << std::endl;
-  
+
   this->icon = SDL_CreateTextureFromSurface(pGameEngine->GetRenderer(),
-					    icon_surface);
-  if(this->icon == nullptr)
+                                            icon_surface);
+  if (this->icon == nullptr)
     std::cout << SDL_GetError() << std::endl;
   SDL_FreeSurface(icon_surface);
-  
+
   return true;
 }
 
@@ -72,13 +72,15 @@ void Game::Cycle()
   this->DrawImage(pGameEngine->GetRenderer(), x, y);
 }
 
-void Game::DrawImage(SDL_Renderer *renderer, int x, int y){
+void Game::DrawImage(SDL_Renderer *renderer, int x, int y)
+{
   int iW, iH;
   SDL_QueryTexture(this->icon, NULL, NULL, &iW, &iH);
-  SDL_Rect rect = {x, y, iW, iH};  
+  SDL_Rect rect = {x, y, iW, iH};
 
   int retcode = SDL_RenderCopy(renderer, this->icon, NULL, &rect);
-  if(retcode <0)std::cout << "ERR DRAW " << SDL_GetError() << std::endl;
-    
+  if (retcode < 0)
+    std::cout << "ERR DRAW " << SDL_GetError() << std::endl;
+
   SDL_RenderPresent(renderer);
 }

@@ -20,7 +20,7 @@ Background::Background(int iWidth, int iHeight, SDL_Color crColor)
   m_pBitmap = NULL;
 }
 
-Background::Background(Bitmap* pBitmap)
+Background::Background(Bitmap *pBitmap)
 {
   // Initialize the member variables
   m_crColor = {0, 0, 0};
@@ -48,12 +48,12 @@ void Background::Draw(SDL_Renderer *renderer)
     m_pBitmap->Draw(renderer, 0, 0);
   else
   {
-    SDL_Rect rect = { 0, 0, m_iWidth, m_iHeight };
-    SDL_SetRenderDrawColor( renderer,
-			    m_crColor.r,
-			    m_crColor.g,
-			    m_crColor.b,
-			    255 );
+    SDL_Rect rect = {0, 0, m_iWidth, m_iHeight};
+    SDL_SetRenderDrawColor(renderer,
+                           m_crColor.r,
+                           m_crColor.g,
+                           m_crColor.b,
+                           255);
     SDL_RenderFillRect(renderer, &rect);
   }
 }
@@ -62,7 +62,7 @@ void Background::Draw(SDL_Renderer *renderer)
 // StarryBackground Constructor
 //-----------------------------------------------------------------
 StarryBackground::StarryBackground(int iWidth, int iHeight, int iNumStars,
-				   int iTwinkleDelay) : Background(iWidth, iHeight, {0, 0, 0})
+                                   int iTwinkleDelay) : Background(iWidth, iHeight, {0, 0, 0})
 {
   // Initialize the member variables
   m_iNumStars = std::min(iNumStars, 100);
@@ -101,21 +101,22 @@ void StarryBackground::Update()
 void StarryBackground::Draw(SDL_Renderer *renderer)
 {
   // Draw the solid black background
-  SDL_Rect rect = { 0, 0, m_iWidth, m_iHeight };
-  SDL_SetRenderDrawColor( renderer,
-			  m_crColor.r,
-			  m_crColor.g,
-			  m_crColor.b,
-			  255 );
+  SDL_Rect rect = {0, 0, m_iWidth, m_iHeight};
+  SDL_SetRenderDrawColor(renderer,
+                         m_crColor.r,
+                         m_crColor.g,
+                         m_crColor.b,
+                         255);
   SDL_RenderFillRect(renderer, &rect);
-  
+
   // Draw the stars
-  for (int i = 0; i < m_iNumStars; i++){
+  for (int i = 0; i < m_iNumStars; i++)
+  {
     SDL_SetRenderDrawColor(renderer,
-			   m_crStarColors[i].r,
-			   m_crStarColors[i].g,
-			   m_crStarColors[i].b,
-			   255);
+                           m_crStarColors[i].r,
+                           m_crStarColors[i].g,
+                           m_crStarColors[i].b,
+                           255);
     SDL_RenderDrawPoint(renderer, m_ptStars[i].x, m_ptStars[i].y);
   }
 }

@@ -14,7 +14,7 @@ using namespace TYGP;
 
 class Game : public IGame
 {
- public:
+public:
   ~Game();
   bool Initialize();
   void Start();
@@ -29,11 +29,11 @@ class Game : public IGame
   void MouseButtonUp(int x, int y, bool bLeft);
   void MouseMove(int x, int y);
   void HandleJoystick(JOYSTATE jsJoystickState);
-  bool SpriteCollision(Sprite* pSpriteHitter,
-		       Sprite* pSpriteHittee);
-  void SpriteDying(Sprite* pSprite);
-  
-  static const int   _iNUMSLIDES = 6;
-  Image*     _pSlides[_iNUMSLIDES];
-  int         _iCurSlide;
+  bool SpriteCollision(Sprite *pSpriteHitter,
+                       Sprite *pSpriteHittee);
+  void SpriteDying(Sprite *pSprite);
+
+  static const int _iNUMSLIDES = 6;
+  Image *_pSlides[_iNUMSLIDES];
+  int _iCurSlide;
 };

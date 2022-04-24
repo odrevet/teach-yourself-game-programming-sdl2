@@ -12,13 +12,13 @@
 // Game Engine Functions
 //-----------------------------------------------------------------
 
-Game::~Game(){
-
+Game::~Game()
+{
 }
 
 bool Game::Initialize()
 {
-  //get the game engine
+  // get the game engine
   GameEngine *pGameEngine = GameEngine::GetEngine();
 
   // Set the frame rate
@@ -78,8 +78,10 @@ void Game::Start()
 
   // Load the sound effects
   _mcSelect = Mix_LoadWAV("res/Select.wav");
-  if(_mcSelect==nullptr) cout << "Could not load WAV\n" <<  SDL_GetError();
-  
+  if (_mcSelect == nullptr)
+    cout << "Could not load WAV\n"
+         << SDL_GetError();
+
   _mcMatch = Mix_LoadWAV("res/Match.wav");
   _mcMisMatch = Mix_LoadWAV("res/Mismatch.wav");
   _mcWin = Mix_LoadWAV("res/Win.wav");
@@ -96,7 +98,7 @@ void Game::End()
   Mix_FreeChunk(_mcMatch);
   Mix_FreeChunk(_mcMisMatch);
   Mix_FreeChunk(_mcWin);
-  
+
   // Cleanup the game engine
   GameEngine *pGameEngine = GameEngine::GetEngine();
   delete pGameEngine;
@@ -121,7 +123,7 @@ void Game::Paint()
   for (int i = 0; i < 4; i++)
     for (int j = 0; j < 4; j++)
       if (_bTileStates[i][j] || ((i == _ptTile1.x) && (j == _ptTile1.y)) ||
-        ((i == _ptTile2.x) && (j == _ptTile2.y)))
+          ((i == _ptTile2.x) && (j == _ptTile2.y)))
         _pTiles[_iTiles[i][j]]->Draw(renderer, i * iTileWidth, j * iTileHeight);
       else
         _pTiles[0]->Draw(renderer, i * iTileWidth, j * iTileHeight);
@@ -133,20 +135,22 @@ void Game::Cycle()
 {
 }
 
-void Game::HandleKeys(){
+void Game::HandleKeys()
+{
   SDL_PumpEvents();
   const Uint8 *state = SDL_GetKeyboardState(NULL);
 
-  //Q
-  if (state[SDL_GetScancodeFromKey(SDLK_q)]) {
+  // Q
+  if (state[SDL_GetScancodeFromKey(SDLK_q)])
+  {
     exit(0);
   }
 }
 
 void Game::MouseButtonDown(int x, int y, bool bLeft)
 {
-  GameEngine* pGE = GameEngine::GetEngine();
-  SDL_Renderer* renderer = pGE->GetRenderer();
+  GameEngine *pGE = GameEngine::GetEngine();
+  SDL_Renderer *renderer = pGE->GetRenderer();
 
   // Determine which tile was clicked
   int iTileX = x / _pTiles[0]->GetWidth();
@@ -159,8 +163,8 @@ void Game::MouseButtonDown(int x, int y, bool bLeft)
     if (_ptTile1.x == -1)
     {
       // Play a sound for the tile selection
-      Mix_PlayChannel(-1, _mcSelect, 0 );
-      
+      Mix_PlayChannel(-1, _mcSelect, 0);
+
       // Set the first tile selection
       _ptTile1.x = iTileX;
       _ptTile1.y = iTileY;
@@ -169,9 +173,9 @@ void Game::MouseButtonDown(int x, int y, bool bLeft)
     {
       if (_ptTile2.x == -1)
       {
-	// Play a sound for the tile selection
-	Mix_PlayChannel(-1, _mcSelect, 0 );
-      
+        // Play a sound for the tile selection
+        Mix_PlayChannel(-1, _mcSelect, 0);
+
         // Increase the number of tries
         _iTries++;
 
@@ -182,8 +186,8 @@ void Game::MouseButtonDown(int x, int y, bool bLeft)
         // See if it's a match
         if (_iTiles[_ptTile1.x][_ptTile1.y] == _iTiles[_ptTile2.x][_ptTile2.y])
         {
-	  // Play a sound for the tile match
-	  Mix_PlayChannel(-1, _mcMatch, 0 );
+          // Play a sound for the tile match
+          Mix_PlayChannel(-1, _mcMatch, 0);
           // Set the tile state to indicate the match
           _bTileStates[_ptTile1.x][_ptTile1.y] = true;
           _bTileStates[_ptTile2.x][_ptTile2.y] = true;
@@ -194,20 +198,21 @@ void Game::MouseButtonDown(int x, int y, bool bLeft)
           // Update the match count and check for winner
           if (++_iMatches == 8)
           {
-	    // Play a victory sound
-	    Mix_PlayChannel(-1, _mcWin, 0);
+            // Play a victory sound
+            Mix_PlayChannel(-1, _mcWin, 0);
             char szText[64];
             sprintf(szText, "You won in %d tries.", _iTries);
-	    SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION ,
-				     "Brainiac",
-				     szText,
-				     pGE->GetWindow());
+            SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION,
+                                     "Brainiac",
+                                     szText,
+                                     pGE->GetWindow());
           }
         }
-	else{
-	  // Play a sound for the tile mismatch
-	  Mix_PlayChannel(-1, _mcMisMatch, 0 );
-	}	
+        else
+        {
+          // Play a sound for the tile mismatch
+          Mix_PlayChannel(-1, _mcMisMatch, 0);
+        }
       }
       else
       {
@@ -233,8 +238,8 @@ void Game::HandleJoystick(JOYSTATE jsJoystickState)
 {
 }
 
-bool Game::SpriteCollision(Sprite* pSpriteHitter,
-			   Sprite* pSpriteHittee)
+bool Game::SpriteCollision(Sprite *pSpriteHitter,
+                           Sprite *pSpriteHittee)
 {
   return false;
 }

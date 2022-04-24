@@ -12,7 +12,7 @@
 
 class Game : public IGame
 {
- public:
+public:
   ~Game();
   bool Initialize();
   void Start();
@@ -22,7 +22,7 @@ class Game : public IGame
   void Paint();
   void Cycle();
 
-  static const int   _iNUMSLIDES = 6;
-  Bitmap*     _pSlides[_iNUMSLIDES];
-  int         _iCurSlide;
+  static const int _iNUMSLIDES = 6;
+  Bitmap *_pSlides[_iNUMSLIDES];
+  int _iCurSlide;
 };

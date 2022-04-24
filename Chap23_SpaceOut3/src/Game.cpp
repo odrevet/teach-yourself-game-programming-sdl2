@@ -8,38 +8,38 @@
 //-----------------------------------------------------------------
 #include "Game.h"
 
-
 int Game::_iDifficulty = 0;
-Bitmap* Game::_pBlobboBitmap = nullptr;
-Bitmap* Game::_pBMissileBitmap = nullptr;
-Bitmap* Game::_pJellyBitmap = nullptr;
-Bitmap* Game::_pJMissileBitmap = nullptr;
-Bitmap* Game::_pTimmyBitmap = nullptr;
-Bitmap* Game::_pTMissileBitmap = nullptr;
+Bitmap *Game::_pBlobboBitmap = nullptr;
+Bitmap *Game::_pBMissileBitmap = nullptr;
+Bitmap *Game::_pJellyBitmap = nullptr;
+Bitmap *Game::_pJMissileBitmap = nullptr;
+Bitmap *Game::_pTimmyBitmap = nullptr;
+Bitmap *Game::_pTMissileBitmap = nullptr;
 
 //-----------------------------------------------------------------
 // Game Engine Functions
 //-----------------------------------------------------------------
 
-Game::~Game(){
-
+Game::~Game()
+{
 }
 
 bool Game::Initialize()
 {
-  //get the game engine
+  // get the game engine
   GameEngine *pGameEngine = GameEngine::GetEngine();
 
   // Set the frame rate
   pGameEngine->SetFrameRate(30);
 
-  //init text
+  // init text
   _ttfFont = TTF_OpenFont("res/DejaVuSans.ttf", 12);
-  if ( _ttfFont == nullptr ){
+  if (_ttfFont == nullptr)
+  {
     std::cout << " Failed to load font : " << TTF_GetError() << std::endl;
     return false;
   }
-  
+
   return true;
 }
 
@@ -54,24 +54,24 @@ void Game::Start()
   // Create and load the bitmaps
   SDL_Color scTrans = {255, 0, 255, 255};
   _pDesertBitmap = new Bitmap(renderer, "res/Desert.bmp", &scTrans);
-  _pCarBitmap    = new Bitmap(renderer, "res/Car.bmp", &scTrans);
-  _pSmCarBitmap  = new Bitmap(renderer, "res/SmCar.bmp", &scTrans);
+  _pCarBitmap = new Bitmap(renderer, "res/Car.bmp", &scTrans);
+  _pSmCarBitmap = new Bitmap(renderer, "res/SmCar.bmp", &scTrans);
   _pMissileBitmap = new Bitmap(renderer, "res/Missile.bmp", &scTrans);
-  Game::_pBlobboBitmap   = new Bitmap(renderer, "res/Blobbo.bmp", &scTrans);
+  Game::_pBlobboBitmap = new Bitmap(renderer, "res/Blobbo.bmp", &scTrans);
   Game::_pBMissileBitmap = new Bitmap(renderer, "res/BMissile.bmp", &scTrans);
-  Game::_pJellyBitmap    = new Bitmap(renderer, "res/Jelly.bmp", &scTrans);
+  Game::_pJellyBitmap = new Bitmap(renderer, "res/Jelly.bmp", &scTrans);
   Game::_pJMissileBitmap = new Bitmap(renderer, "res/JMissile.bmp", &scTrans);
-  Game::_pTimmyBitmap    = new Bitmap(renderer, "res/Timmy.bmp", &scTrans);
+  Game::_pTimmyBitmap = new Bitmap(renderer, "res/Timmy.bmp", &scTrans);
   Game::_pTMissileBitmap = new Bitmap(renderer, "res/TMissile.bmp", &scTrans);
   _pSmExplosionBitmap = new Bitmap(renderer, "res/SmExplosion.bmp", &scTrans);
   _pLgExplosionBitmap = new Bitmap(renderer, "res/LgExplosion.bmp", &scTrans);
-  _pGameOverBitmap    = new Bitmap(renderer, "res/GameOver.bmp", &scTrans);
-  _pSplashBitmap      = new Bitmap(renderer, "res/Splash.bmp", &scTrans);
+  _pGameOverBitmap = new Bitmap(renderer, "res/GameOver.bmp", &scTrans);
+  _pSplashBitmap = new Bitmap(renderer, "res/Splash.bmp", &scTrans);
 
   // Create the starry background
   _pBackground = new StarryBackground(600, 450);
 
-  //Load sound effects
+  // Load sound effects
   _mcMissile = Mix_LoadWAV("res/Missile.wav");
   _mcJMissile = Mix_LoadWAV("res/JMissile.wav");
   _mcBMissile = Mix_LoadWAV("res/BMissile.wav");
@@ -80,7 +80,7 @@ void Game::Start()
   _mcLgExplode = Mix_LoadWAV("res/LgExplode.wav");
   _mcGameOver = Mix_LoadWAV("res/GameOver.wav");
 
-  //Load music
+  // Load music
   _mmMusic = Mix_LoadMUS("res/Music.xm");
 
   // Set the splash screen variable
@@ -107,14 +107,14 @@ void Game::End()
   delete _pLgExplosionBitmap;
   delete _pGameOverBitmap;
   delete _pSplashBitmap;
-  
+
   // Cleanup the background
   delete _pBackground;
-  
+
   // Cleanup the sprites
   pGameEngine->CleanupSprites();
 
-  //Cleanup the sound effects
+  // Cleanup the sound effects
   Mix_FreeChunk(_mcMissile);
   Mix_FreeChunk(_mcJMissile);
   Mix_FreeChunk(_mcBMissile);
@@ -122,8 +122,8 @@ void Game::End()
   Mix_FreeChunk(_mcSmExplode);
   Mix_FreeChunk(_mcLgExplode);
   Mix_FreeChunk(_mcGameOver);
-  
-  //Cleanup the music
+
+  // Cleanup the music
   Mix_FreeMusic(_mmMusic);
 
   // Cleanup the game engine
@@ -151,7 +151,7 @@ void Game::Paint()
 
   // Draw the sprites
   pGameEngine->DrawSprites();
-    
+
   if (_bDemo)
   {
     // Draw the splash screen image
@@ -162,26 +162,26 @@ void Game::Paint()
     // Draw the number of remaining lives (cars)
     for (int i = 0; i < _iNumLives; i++)
       _pSmCarBitmap->Draw(renderer,
-			  520 + (_pSmCarBitmap->GetWidth() * i),
-			  10);
+                          520 + (_pSmCarBitmap->GetWidth() * i),
+                          10);
 
     // Draw the score
     char szText[64];
-    SDL_Rect  rect = { 460, 0, 50, 30 };
+    SDL_Rect rect = {460, 0, 50, 30};
     sprintf(szText, "%d", _iScore);
     SDL_Color text_color = {255, 255, 255, 255};
     SDL_Texture *text_texture = pGameEngine->DrawText(renderer,
-						      szText,
-						      _ttfFont,
-						      text_color);
-    if(text_texture)SDL_RenderCopy(renderer, text_texture, NULL, &rect);  
+                                                      szText,
+                                                      _ttfFont,
+                                                      text_color);
+    if (text_texture)
+      SDL_RenderCopy(renderer, text_texture, NULL, &rect);
 
-  
     // Draw the number of remaining lives (cars)
     for (int i = 0; i < _iNumLives; i++)
       _pSmCarBitmap->Draw(renderer,
-			  520 + (_pSmCarBitmap->GetWidth() * i),
-			  10);
+                          520 + (_pSmCarBitmap->GetWidth() * i),
+                          10);
 
     // Draw the game over message, if necessary
     if (_bGameOver)
@@ -193,38 +193,40 @@ void Game::Paint()
 void Game::Cycle()
 {
   GameEngine *pGameEngine = GameEngine::GetEngine();
-  
+
   if (!_bGameOver)
   {
     if (!_bDemo)
-      {
-	// Randomly add aliens
-	if ((rand() % Game::_iDifficulty) == 0)
-	  AddAlien();
-      }	
+    {
+      // Randomly add aliens
+      if ((rand() % Game::_iDifficulty) == 0)
+        AddAlien();
+    }
     // Update the background
     _pBackground->Update();
-    
+
     // Update the sprites
     pGameEngine->UpdateSprites();
   }
   else if (--_iGameOverDelay == 0)
-    {
-      // Stop the music and switch to demo mode
-      pGameEngine->PauseSong();
-      _bDemo = true;
-      NewGame();
-    } 
+  {
+    // Stop the music and switch to demo mode
+    pGameEngine->PauseSong();
+    _bDemo = true;
+    NewGame();
+  }
 }
 
-void Game::HandleKeys(){
+void Game::HandleKeys()
+{
   GameEngine *pGameEngine = GameEngine::GetEngine();
- 
+
   SDL_PumpEvents();
   const Uint8 *state = SDL_GetKeyboardState(NULL);
 
-  //Q
-  if (state[SDL_GetScancodeFromKey(SDLK_q)]) {
+  // Q
+  if (state[SDL_GetScancodeFromKey(SDLK_q)])
+  {
     exit(0);
   }
 
@@ -249,9 +251,9 @@ void Game::HandleKeys(){
     if ((++_iFireInputDelay > 6) && state[SDL_SCANCODE_SPACE])
     {
       // Create a new missile sprite
-      SDL_Rect  rcBounds = { 0, 0, 600, 450 };
-      SDL_Rect  rcPos = _pCarSprite->GetPosition();
-      Sprite* pSprite = new Sprite(_pMissileBitmap, rcBounds, BA_DIE);
+      SDL_Rect rcBounds = {0, 0, 600, 450};
+      SDL_Rect rcPos = _pCarSprite->GetPosition();
+      Sprite *pSprite = new Sprite(_pMissileBitmap, rcBounds, BA_DIE);
       pSprite->SetPosition(rcPos.x + 15, 400);
       pSprite->SetVelocity(0, -7);
       pGameEngine->AddSprite(pSprite);
@@ -265,7 +267,8 @@ void Game::HandleKeys(){
   }
 
   // Start a new game based upon an Enter (Return) key press
-  if (state[SDL_SCANCODE_RETURN]){
+  if (state[SDL_SCANCODE_RETURN])
+  {
     if (_bDemo)
     {
       // Start a new game without the splash screen
@@ -278,12 +281,10 @@ void Game::HandleKeys(){
       NewGame();
     }
   }
-  
 }
 
 void Game::MouseButtonDown(int x, int y, bool bLeft)
 {
-
 }
 
 void Game::MouseButtonUp(int x, int y, bool bLeft)
@@ -291,40 +292,40 @@ void Game::MouseButtonUp(int x, int y, bool bLeft)
 }
 
 void Game::MouseMove(int x, int y)
-{ 
+{
 }
 
 void Game::HandleJoystick(JOYSTATE jsJoystickState)
 {
-
 }
 
-bool Game::SpriteCollision(Sprite* pSpriteHitter, Sprite* pSpriteHittee){
+bool Game::SpriteCollision(Sprite *pSpriteHitter, Sprite *pSpriteHittee)
+{
   GameEngine *pGameEngine = GameEngine::GetEngine();
-  
- // See if a player missile and an alien have collided
-  Bitmap* pHitter = pSpriteHitter->GetBitmap();
-  Bitmap* pHittee = pSpriteHittee->GetBitmap();
+
+  // See if a player missile and an alien have collided
+  Bitmap *pHitter = pSpriteHitter->GetBitmap();
+  Bitmap *pHittee = pSpriteHittee->GetBitmap();
   if ((pHitter == _pMissileBitmap && (pHittee == _pBlobboBitmap ||
-    pHittee == _pJellyBitmap || pHittee == _pTimmyBitmap)) ||
-    (pHittee == _pMissileBitmap && (pHitter == _pBlobboBitmap ||
-    pHitter == _pJellyBitmap || pHitter == _pTimmyBitmap)))
+                                      pHittee == _pJellyBitmap || pHittee == _pTimmyBitmap)) ||
+      (pHittee == _pMissileBitmap && (pHitter == _pBlobboBitmap ||
+                                      pHitter == _pJellyBitmap || pHitter == _pTimmyBitmap)))
   {
     // Play the small explosion sound
     Mix_PlayChannel(-1, _mcSmExplode, 0);
-    
+
     // Kill both sprites
     pSpriteHitter->Kill();
     pSpriteHittee->Kill();
 
     // Create a large explosion sprite at the alien's position
-    SDL_Rect rcBounds = { 0, 0, 600, 450 };
+    SDL_Rect rcBounds = {0, 0, 600, 450};
     SDL_Rect rcPos;
     if (pHitter == _pMissileBitmap)
       rcPos = pSpriteHittee->GetPosition();
     else
       rcPos = pSpriteHitter->GetPosition();
-    Sprite* pSprite = new Sprite(_pLgExplosionBitmap, rcBounds);
+    Sprite *pSprite = new Sprite(_pLgExplosionBitmap, rcBounds);
     pSprite->SetNumFrames(8, true);
     pSprite->SetPosition(rcPos.x, rcPos.y);
     pGameEngine->AddSprite(pSprite);
@@ -336,9 +337,9 @@ bool Game::SpriteCollision(Sprite* pSpriteHitter, Sprite* pSpriteHittee){
 
   // See if an alien missile has collided with the car
   if ((pHitter == _pCarBitmap && (pHittee == _pBMissileBitmap ||
-    pHittee == _pJMissileBitmap || pHittee == _pTMissileBitmap)) ||
-    (pHittee == _pCarBitmap && (pHitter == _pBMissileBitmap ||
-    pHitter == _pJMissileBitmap || pHitter == _pTMissileBitmap)))
+                                  pHittee == _pJMissileBitmap || pHittee == _pTMissileBitmap)) ||
+      (pHittee == _pCarBitmap && (pHitter == _pBMissileBitmap ||
+                                  pHitter == _pJMissileBitmap || pHitter == _pTMissileBitmap)))
   {
     // Play the large explosion sound
     Mix_PlayChannel(-1, _mcLgExplode, 0);
@@ -350,13 +351,13 @@ bool Game::SpriteCollision(Sprite* pSpriteHitter, Sprite* pSpriteHittee){
       pSpriteHitter->Kill();
 
     // Create a large explosion sprite at the car's position
-    SDL_Rect rcBounds = { 0, 0, 600, 480 };
+    SDL_Rect rcBounds = {0, 0, 600, 480};
     SDL_Rect rcPos;
     if (pHitter == _pCarBitmap)
       rcPos = pSpriteHitter->GetPosition();
     else
       rcPos = pSpriteHittee->GetPosition();
-    Sprite* pSprite = new Sprite(_pLgExplosionBitmap, rcBounds);
+    Sprite *pSprite = new Sprite(_pLgExplosionBitmap, rcBounds);
     pSprite->SetNumFrames(8, true);
     pSprite->SetPosition(rcPos.x, rcPos.y);
     pGameEngine->AddSprite(pSprite);
@@ -377,19 +378,20 @@ bool Game::SpriteCollision(Sprite* pSpriteHitter, Sprite* pSpriteHittee){
   return false;
 }
 
-void Game::SpriteDying(Sprite* pSprite){
+void Game::SpriteDying(Sprite *pSprite)
+{
   // See if an alien missile sprite is dying
   if (pSprite->GetBitmap() == _pBMissileBitmap ||
-    pSprite->GetBitmap() == _pJMissileBitmap ||
-    pSprite->GetBitmap() == _pTMissileBitmap)
+      pSprite->GetBitmap() == _pJMissileBitmap ||
+      pSprite->GetBitmap() == _pTMissileBitmap)
   {
     // Play the small explosion sound
     Mix_PlayChannel(-1, _mcSmExplode, 0);
 
     // Create a small explosion sprite at the missile's position
-    SDL_Rect rcBounds = { 0, 0, 600, 450 };
+    SDL_Rect rcBounds = {0, 0, 600, 450};
     SDL_Rect rcPos = pSprite->GetPosition();
-    Sprite* pSprite = new Sprite(_pSmExplosionBitmap, rcBounds);
+    Sprite *pSprite = new Sprite(_pSmExplosionBitmap, rcBounds);
     pSprite->SetNumFrames(8, true);
     pSprite->SetPosition(rcPos.x, rcPos.y);
     GameEngine *pGameEngine = GameEngine::GetEngine();
@@ -400,9 +402,10 @@ void Game::SpriteDying(Sprite* pSprite){
 //-----------------------------------------------------------------
 // Functions
 //-----------------------------------------------------------------
-void Game::NewGame(){
+void Game::NewGame()
+{
   GameEngine *pGameEngine = GameEngine::GetEngine();
-  
+
   // Clear the sprites
   pGameEngine->CleanupSprites();
 
@@ -414,29 +417,30 @@ void Game::NewGame(){
   _bGameOver = false;
 
   if (_bDemo)
-    {
-      // Add a few aliens to the demo
-      for (int i = 0; i < 6; i++)
-	AddAlien();      
-    }
+  {
+    // Add a few aliens to the demo
+    for (int i = 0; i < 6; i++)
+      AddAlien();
+  }
   else
-    {
-      // Create the car sprite
-      SDL_Rect rcBounds = { 0, 0, 600, 450 };
-      _pCarSprite = new Sprite(_pCarBitmap, rcBounds, BA_WRAP);
-      _pCarSprite->SetPosition(300, 405);
-      pGameEngine->AddSprite(_pCarSprite);
+  {
+    // Create the car sprite
+    SDL_Rect rcBounds = {0, 0, 600, 450};
+    _pCarSprite = new Sprite(_pCarBitmap, rcBounds, BA_WRAP);
+    _pCarSprite->SetPosition(300, 405);
+    pGameEngine->AddSprite(_pCarSprite);
 
-      // Play the background music
-      pGameEngine->PlaySong(_mmMusic);
-    }
+    // Play the background music
+    pGameEngine->PlaySong(_mmMusic);
+  }
 }
 
-void Game::AddAlien(){
+void Game::AddAlien()
+{
   // Create a new random alien sprite
-  SDL_Rect      rcBounds = { 0, 0, 600, 410 };
-  AlienSprite*  pSprite;
-  switch(rand() % 3)
+  SDL_Rect rcBounds = {0, 0, 600, 410};
+  AlienSprite *pSprite;
+  switch (rand() % 3)
   {
   case 0:
     // Blobbo

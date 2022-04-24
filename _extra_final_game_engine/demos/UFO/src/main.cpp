@@ -10,33 +10,32 @@ using namespace TYGP;
 //-----------------------------------------------------------------
 // Main function
 //-----------------------------------------------------------------
-int main (int argc, char* argv[])
+int main(int argc, char *argv[])
 {
-  //instanciante the game
+  // instanciante the game
   IGame *pGame = new Game;
 
-  //get the game engine and assign the game
+  // get the game engine and assign the game
   GameEngine *pGameEngine = GameEngine::GetEngine();
   pGameEngine->m_game = pGame;
-  
-  const char* game_name = "UFO 2";
-  const char* game_icon = "res/UFO.ico";
+
+  const char *game_name = "UFO 2";
+  const char *game_icon = "res/UFO.ico";
   int window_width = 500;
   int window_height = 400;
 
-  //Initialize or quit if an error occured
+  // Initialize or quit if an error occured
   if (!pGameEngine->Initialize(game_name,
-			       game_icon,
-			       window_width,
-			       window_height) ||
-      !pGame->Initialize()){
+                               game_icon,
+                               window_width,
+                               window_height) ||
+      !pGame->Initialize())
+  {
     std::cout << "INIT ERR" << std::endl;
     return EXIT_FAILURE;
   }
 
-
   pGameEngine->Run();
-    
+
   return EXIT_SUCCESS;
 }
-

@@ -12,20 +12,20 @@
 // Game Engine Functions
 //-----------------------------------------------------------------
 
-Game::~Game(){
-
+Game::~Game()
+{
 }
 
 bool Game::Initialize()
 {
-  //get the game engine
+  // get the game engine
   GameEngine *pGameEngine = GameEngine::GetEngine();
 
   // Set the frame rate
   pGameEngine->SetFrameRate(30);
 
   // Initialize the joystick
-  
+
   return true;
 }
 
@@ -46,7 +46,7 @@ void Game::Start()
   _pBackground = new StarryBackground(500, 400);
 
   // Create the asteroid sprites
-  SDL_Rect    rcBounds = { 0, 0, 500, 400 };
+  SDL_Rect rcBounds = {0, 0, 500, 400};
   _pAsteroids[0] = new Sprite(_pAsteroidBitmap, rcBounds, BA_WRAP);
   _pAsteroids[0]->SetNumFrames(14);
   _pAsteroids[0]->SetFrameDelay(1);
@@ -66,12 +66,11 @@ void Game::Start()
   _pAsteroids[2]->SetVelocity(-2, -4);
   pGE->AddSprite(_pAsteroids[2]);
 
-  
   // Create the saucer sprite
   _pSaucer = new Sprite(_pSaucerBitmap, rcBounds, BA_WRAP);
   _pSaucer->SetPosition(0, 0);
   _pSaucer->SetVelocity(3, 1);
-  pGE->AddSprite(_pSaucer);  
+  pGE->AddSprite(_pSaucer);
 }
 
 void Game::End()
@@ -84,7 +83,7 @@ void Game::End()
 
   // Cleanup the background
   delete _pBackground;
-  
+
   // Cleanup the sprites
   pGameEngine->CleanupSprites();
 
@@ -107,7 +106,7 @@ void Game::Paint()
 
   // Draw the background
   _pBackground->Draw(renderer);
-  
+
   // Draw the sprites
   pGameEngine->DrawSprites();
 
@@ -117,30 +116,31 @@ void Game::Paint()
 void Game::Cycle()
 {
   GameEngine *pGameEngine = GameEngine::GetEngine();
-  
+
   // Update the background
   _pBackground->Update();
 
   // Update the saucer to help it dodge the asteroids
   UpdateSaucer();
-  
+
   // Update the sprites
-  pGameEngine->UpdateSprites();  
+  pGameEngine->UpdateSprites();
 }
 
-void Game::HandleKeys(){
+void Game::HandleKeys()
+{
   SDL_PumpEvents();
   const Uint8 *state = SDL_GetKeyboardState(NULL);
 
-  //Q
-  if (state[SDL_GetScancodeFromKey(SDLK_q)]) {
+  // Q
+  if (state[SDL_GetScancodeFromKey(SDLK_q)])
+  {
     exit(0);
   }
 }
 
 void Game::MouseButtonDown(int x, int y, bool bLeft)
 {
-
 }
 
 void Game::MouseButtonUp(int x, int y, bool bLeft)
@@ -148,20 +148,20 @@ void Game::MouseButtonUp(int x, int y, bool bLeft)
 }
 
 void Game::MouseMove(int x, int y)
-{ 
+{
 }
 
 void Game::HandleJoystick(JOYSTATE jsJoystickState)
 {
-
 }
 
-bool Game::SpriteCollision(Sprite* pSpriteHitter, Sprite* pSpriteHittee){
+bool Game::SpriteCollision(Sprite *pSpriteHitter, Sprite *pSpriteHittee)
+{
   return false;
 }
 
-void Game::SpriteDying(Sprite* pSprite){
-
+void Game::SpriteDying(Sprite *pSprite)
+{
 }
 
 //-----------------------------------------------------------------
@@ -182,15 +182,15 @@ void Game::UpdateSaucer()
 
     // Calculate the minimum XY collision distance
     int iXCollisionDist = (rcSaucer.x +
-      (rcSaucer.w - rcSaucer.x) / 2) -
-      (rcRoid.x +
-      (rcRoid.w - rcRoid.x) / 2);
+                           (rcSaucer.w - rcSaucer.x) / 2) -
+                          (rcRoid.x +
+                           (rcRoid.w - rcRoid.x) / 2);
     int iYCollisionDist = (rcSaucer.y +
-      (rcSaucer.h - rcSaucer.y) / 2) -
-      (rcRoid.y +
-      (rcRoid.h - rcRoid.y) / 2);
+                           (rcSaucer.h - rcSaucer.y) / 2) -
+                          (rcRoid.y +
+                           (rcRoid.h - rcRoid.y) / 2);
     if ((abs(iXCollisionDist) < abs(iXCollision)) ||
-      (abs(iYCollisionDist) < abs(iYCollision)))
+        (abs(iYCollisionDist) < abs(iYCollision)))
       if ((abs(iXCollisionDist) + abs(iYCollisionDist)) < iXYCollision)
       {
         iXYCollision = abs(iXCollision) + abs(iYCollision);

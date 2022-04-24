@@ -11,9 +11,9 @@
 //-----------------------------------------------------------------
 // AlienSprite Constructor(s)/Destructor
 //-----------------------------------------------------------------
-AlienSprite::AlienSprite(Bitmap* pBitmap, SDL_Rect& rcBounds,
-  BOUNDSACTION baBoundsAction) : Sprite(pBitmap, rcBounds,
-  baBoundsAction)
+AlienSprite::AlienSprite(Bitmap *pBitmap, SDL_Rect &rcBounds,
+                         BOUNDSACTION baBoundsAction) : Sprite(pBitmap, rcBounds,
+                                                               baBoundsAction)
 {
 }
 
@@ -37,13 +37,13 @@ SPRITEACTION AlienSprite::Update()
   return saSpriteAction;
 }
 
-Sprite* AlienSprite::AddSprite()
+Sprite *AlienSprite::AddSprite()
 {
   // Create a new missile sprite
-  SDL_Rect    rcBounds = { 0, 0, 640, 410 };
-  SDL_Rect    rcPos = GetPosition();
+  SDL_Rect rcBounds = {0, 0, 640, 410};
+  SDL_Rect rcPos = GetPosition();
 
-  Sprite* pSprite = NULL;
+  Sprite *pSprite = NULL;
   if (GetBitmap() == Game::_pBlobboBitmap)
   {
     // Blobbo missile

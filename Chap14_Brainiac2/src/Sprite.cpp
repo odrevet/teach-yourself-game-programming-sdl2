@@ -11,11 +11,11 @@
 //-----------------------------------------------------------------
 // Sprite Constructor(s)/Destructor
 //-----------------------------------------------------------------
-Sprite::Sprite(Bitmap* pBitmap)
+Sprite::Sprite(Bitmap *pBitmap)
 {
   // Initialize the member variables
   m_pBitmap = pBitmap;
-  m_rcPosition.x =  0;
+  m_rcPosition.x = 0;
   m_rcPosition.y = 0;
   m_rcPosition.w = pBitmap->GetWidth();
   m_rcPosition.h = pBitmap->GetHeight();
@@ -29,7 +29,7 @@ Sprite::Sprite(Bitmap* pBitmap)
   m_bHidden = false;
 }
 
-Sprite::Sprite(Bitmap* pBitmap, SDL_Rect& rcBounds, BOUNDSACTION baBoundsAction)
+Sprite::Sprite(Bitmap *pBitmap, SDL_Rect &rcBounds, BOUNDSACTION baBoundsAction)
 {
   // Calculate a random position
   int iXPos = rand() % (rcBounds.w - rcBounds.x);
@@ -48,8 +48,8 @@ Sprite::Sprite(Bitmap* pBitmap, SDL_Rect& rcBounds, BOUNDSACTION baBoundsAction)
   m_bHidden = false;
 }
 
-Sprite::Sprite(Bitmap* pBitmap, SDL_Point ptPosition, SDL_Point ptVelocity, int iZOrder,
-    SDL_Rect& rcBounds, BOUNDSACTION baBoundsAction)
+Sprite::Sprite(Bitmap *pBitmap, SDL_Point ptPosition, SDL_Point ptVelocity, int iZOrder,
+               SDL_Rect &rcBounds, BOUNDSACTION baBoundsAction)
 {
   // Initialize the member variables
   m_pBitmap = pBitmap;
@@ -77,7 +77,7 @@ SPRITEACTION Sprite::Update()
   SDL_Point ptNewPosition, ptSpriteSize;
   ptNewPosition.x = m_rcPosition.x + m_ptVelocity.x;
   ptNewPosition.y = m_rcPosition.y + m_ptVelocity.y;
-  
+
   ptSpriteSize.x = m_rcPosition.w;
   ptSpriteSize.y = m_rcPosition.h;
 
@@ -130,26 +130,26 @@ SPRITEACTION Sprite::Update()
   else if (m_baBoundsAction == BA_DIE)
   {
     if ((ptNewPosition.x + ptSpriteSize.x) < m_rcBounds.x ||
-      ptNewPosition.x > m_rcBounds.w ||
-      (ptNewPosition.y + ptSpriteSize.y) < m_rcBounds.y ||
-      ptNewPosition.y > m_rcBounds.h)
+        ptNewPosition.x > m_rcBounds.w ||
+        (ptNewPosition.y + ptSpriteSize.y) < m_rcBounds.y ||
+        ptNewPosition.y > m_rcBounds.h)
       return SA_KILL;
-  }  
+  }
   // Stop (default)
   else
   {
-    if (ptNewPosition.x  < m_rcBounds.x ||
-      ptNewPosition.x > (m_rcBounds.w - ptSpriteSize.x))
+    if (ptNewPosition.x < m_rcBounds.x ||
+        ptNewPosition.x > (m_rcBounds.w - ptSpriteSize.x))
     {
       ptNewPosition.x = std::max(m_rcBounds.x, std::min(ptNewPosition.x,
-        m_rcBounds.w - ptSpriteSize.x));
+                                                        m_rcBounds.w - ptSpriteSize.x));
       SetVelocity(0, 0);
     }
-    if (ptNewPosition.y  < m_rcBounds.y ||
-      ptNewPosition.y > (m_rcBounds.h - ptSpriteSize.y))
+    if (ptNewPosition.y < m_rcBounds.y ||
+        ptNewPosition.y > (m_rcBounds.h - ptSpriteSize.y))
     {
       ptNewPosition.y = std::max(m_rcBounds.y, std::min(ptNewPosition.y,
-        m_rcBounds.h - ptSpriteSize.y));
+                                                        m_rcBounds.h - ptSpriteSize.y));
       SetVelocity(0, 0);
     }
   }
@@ -164,8 +164,8 @@ void Sprite::Draw(SDL_Renderer *renderer)
   if (m_pBitmap != NULL && !m_bHidden)
     m_pBitmap->Draw(renderer, m_rcPosition.x, m_rcPosition.y);
 #ifdef DEBUG
-    //SDL_RenderDrawRect(renderer, &this->m_rcBounds);
-    //SDL_RenderDrawRect(renderer, &this->m_rcPosition);
-    SDL_RenderDrawRect(renderer, &this->m_rcCollision);
-#endif    
+  // SDL_RenderDrawRect(renderer, &this->m_rcBounds);
+  // SDL_RenderDrawRect(renderer, &this->m_rcPosition);
+  SDL_RenderDrawRect(renderer, &this->m_rcCollision);
+#endif
 }
