@@ -13,6 +13,23 @@ Modifications are:
 * in every games press 'q' to quit
 * See README.md in each folder for detailed comments about each game changes
 
-Thanks to "Michael Morrison" for this very well written and usefull book which
+Thanks to Michael Morrison for this very well written and usefull book which
 I hope this new "SDL2" rewrite will enchance the reader experiance, as
 the SDL2 is portable and the API is increadibly concise.
+
+
+# Required libraries 
+
+* GCC and Make
+
+* SDL2 SDL2_image SDL2_ttf SDL2_mixer
+
+Under Ubuntu those libraries can be installed with: 
+
+```
+sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev
+```
+
+# Build
+
+Each directory contains a Makefile. To build just run `make`. 
